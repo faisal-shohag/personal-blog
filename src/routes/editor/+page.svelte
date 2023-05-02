@@ -24,10 +24,6 @@
         placeholder: "Write your story..."
         });
 
-       let str = '<p>Hello</p><p>sjskdj</p><h5>fff</h5><pre class="ql-syntax" spellcheck="false">class Node:<br>&nbsp; &nbsp; def __init__(self, val):<br>&nbsp; &nbsp; &nbsp; &nbsp; self.left = None<br>&nbsp; &nbsp; &nbsp; &nbsp; self.right = None<br>&nbsp; &nbsp; &nbsp; &nbsp; self.data = val&nbsp;<br></pre><p><br></p><p>sjdjhsd</p><p><br></p><p><br></p><p>djsdhs</p><p><br></p><p>dskjdjs</p><p><br></p><p>dsjdjh<strong>dsjdjs<em>djjjjdhj<u>djdj</u></em></strong></p><p>fjjshsh</p>'
-        str = str.replaceAll('<br>', '\n')
-        document.querySelector('.blog').innerHTML = str;
-
         document.querySelectorAll('pre').forEach(el=>{
         hljs.highlightElement(el);
         el.classList.add('p-3');
@@ -39,7 +35,7 @@
        });
     });
 
-    let title, tags, qt, qta, content, mtags = false;
+    let title, tags, qt, qta, content, mtags = false, express;
 
     
     const show = ()=>{
@@ -48,7 +44,8 @@
           tags: Array.isArray(tags) ? tags : tags.split(','),
           qt: qt,
           qta: qta,
-          content: (quill.root.innerHTML).replaceAll('\n', "<br>")
+          content: (quill.root.innerHTML).replaceAll('\n', "<br>"),
+          express: express
       }
       content = ((formData.content).replaceAll('&lt;', '<')).replaceAll('&gt;', '>');
       tags = formData.tags
@@ -64,7 +61,8 @@
           tags: tags,
           qt: qt,
           qta: qta,
-          content: content
+          content: content,
+          express: express
       }
         //content = ((formData.content).replaceAll('&lt;', '<')).replaceAll('&gt;', '>');
         
@@ -103,15 +101,14 @@
 <input class="input" type="text" placeholder="Tags" bind:value={tags}/>
 
 <input class="input" type="text" placeholder="Quote" bind:value={qt}/>
-<input class="input" type="text" placeholder="QuoteAuthor" bind:value={qta
-} />
+<input class="input" type="text" placeholder="QuoteAuthor" bind:value={qta} />
+<input class="input" type="text" placeholder="QuoteAuthor" bind:value={express} />
 				
 
 <div class="editor-wrapper">
     <div bind:this={editor} />
   </div>
-<button on:click={show} class=" border-2 rounded-xl  text-white p-2 bg-blue-600 border-black
-">show</button>
+<button on:click={show} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Show</button>
  
 
 <div class="flex gap-3 items-center md:float-right max-sm:hidden">
@@ -132,39 +129,13 @@
 <hr />
 
 <div class="blog-content">
+  {#if  content}
   {@html content}
+  {:else}
+  Content Goes Here...
+  {/if}
+  
 </div>
 
+<button on:click={getHtml} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Submit</button>
 
-<pre>  class Node:
-    def __init__(self, val):
-        self.left = None
-        self.right = None
-        self.data = val  
-
-#create tree
-root = Node(1)
-root.left = Node(2)
-root.right = Node(3)
-root.left.left = Node(4)
-root.left.right = Node(5)
-root.right.left = Node(6)
-root.right.right = Node(7)
-
-#dfs:preorder
-def preorder(root):
-  if root == None: return;
-  print(root, end=" ");
-  if root.left: preorder(root.left)
-  if root.right: preorder(root.right)
-</pre>
-<p class="mt-14">I spent the next few summers indoors working on a rocket design, while I recovered from the multiple surgeries it took to fix my badly broken legs. It took nine iterations, but when I was 15 I sent my dad’s Blackberry into orbit and was able to transmit a photo back down to our family computer from space.</p>
-
-<p class="mt-14">Today, I’m the founder of Planetaria, where we’re working on civilian space suits and manned shuttle kits you can assemble at home so that the next generation of kids really can make it to orbit — from the comfort of their own backyards.</p>
-
-
-
-<div class="blog"></div>
-
-<button on:click={getHtml} class=" border-2 rounded-xl  text-white p-2 bg-blue-600 border-black
-">Submit</button>

@@ -1,17 +1,15 @@
 <script>
 import '@skeletonlabs/skeleton/themes/theme-crimson.css';
 import '@skeletonlabs/skeleton/styles/all.css';
-import { LightSwitch, AppShell, AppRail, AppRailTile, AppBar } from '@skeletonlabs/skeleton';
-import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte'
+import { LightSwitch, AppShell, AppRail, AppRailTile} from '@skeletonlabs/skeleton';
+import { Navbar, NavBrand} from 'flowbite-svelte'
 import "../app.postcss"
-import Navigation from '../lib/Navigation/Navigation.svelte';
 import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore'
 import { fstore } from '../firebase';
 import { postStore } from '../stores/postStore'
 import { onMount } from 'svelte';
 import { writable } from 'svelte/store';
 import Icon from '@iconify/svelte';
-import { fade, fly } from 'svelte/transition';
 
 const getReadTime = (s) => {
     s = s.replace(/(^\s*)|(\s*$)/gi,"");
@@ -32,9 +30,7 @@ onMount(async()=>{
     
     onSnapshot(q, snapshot=>{
       let p = [];
-        snapshot.forEach(doc=>{
-        // console.log(doc.data());
-        // getDate(doc.data().createdAt);     
+        snapshot.forEach(doc=>{    
         p.push({
             ...doc.data(),
             mins: getReadTime(doc.data().content),
@@ -65,8 +61,6 @@ $: open = sideOpen
 </svelte:head>
 
 <Navbar  navClass="sticky top-0 flex justify-between items-center shadow-sm p-1 font-hind bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-5 border-1 border-gray-100" let:hidden let:toggle>
-  
-  
   <NavBrand>
     <div class="flex items-center md:hidden">
       <button on:click={openSide} class="lg:hidden btn btn-sm mr-4">
@@ -97,7 +91,6 @@ $: open = sideOpen
 
 
 <AppShell slotSidebarLeft="{open ? 'max-sm:w-64 max-sm:left-0' : 'max-sm:w-0 max-sm:left-0'} transition-all duration-500 h-screen fixed transition">
-	
   <svelte:fragment slot="sidebarLeft"> 
 		<AppRail selected={storeValue}>
       <AppRailTile on:click={openSide} label="Home" tag="a" href={"/"} value={0}><Icon class="text-3xl" icon="line-md:home-simple-filled" /></AppRailTile>
@@ -113,8 +106,6 @@ $: open = sideOpen
   }} class="container p-10 pt-4 space-y-4 max-sm:p-3  rounded-b-sm h-auto shadow-md">
     <slot />
   </div>
-  
-
 </AppShell>
 
 

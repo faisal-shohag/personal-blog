@@ -6,8 +6,6 @@
     export let createdAt;
     export let tags;
     export let mins;
-
-    console.log(avatar);
 </script>
 
 <div class="font-hind p-2 text-black dark:text-gray-400">
