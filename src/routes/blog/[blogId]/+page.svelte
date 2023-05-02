@@ -10,7 +10,7 @@
 let post;
 let content;
 let unsubscribe = postStore.subscribe(async data => {
-    console.log(data);
+    // console.log(data);
     post = data[parseInt(params)];
     if(post)
     content = post.content.replaceAll('<br>', '\n');

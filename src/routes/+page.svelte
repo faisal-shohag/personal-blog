@@ -6,7 +6,7 @@ import {postStore} from '../stores/postStore'
 
 let posts = [];
 let unsubscribe = postStore.subscribe(async data => {
-    console.log(data);
+    // console.log(data);
     posts = data;
 });
 
