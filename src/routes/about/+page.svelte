@@ -1,0 +1,23 @@
+<script>
+    import Icon from '@iconify/svelte';
+    import sleep from '../../images/alien_cute2.png'
+</script>
+<div class="p-4 space-y-2 font-hind">
+    <div class="head flex item-center gap-2 text-3xl max-sm:text-2xl uppercase font-bold"> 
+        <img class="animate-pulse h-20 max-sm:h-10" alt="" src={sleep} />
+        About
+    </div>
+    <hr/>
+    <div class="p-4 flex items-center flex-wrap w-full variant-glass rounded-lg">
+        This is a personal blog and portfolio website. I basically created it, in order to stay focus on study about <code class="mx-1">DSA</code> , <code class="mx-1">OS</code> and <code class="mx-1">AI.</code>
+        <div class="flex  flex-wrap items-center">
+        This project is made with <Icon class="mx-1" icon="logos:svelte-kit" /> and <Icon icon="vscode-icons:file-type-firebase" />.</div> Svelte is my favourite framework (actually a compiler) because of it's tiny bundle size and super fast behaviour!
+        <div class="flex items-center gap-1">You can find it on<Icon icon="octicon:logo-github-16" />.</div>
+    </div>
+</div>
+
+<style>
+.head{
+    align-items: center;
+}
+</style>

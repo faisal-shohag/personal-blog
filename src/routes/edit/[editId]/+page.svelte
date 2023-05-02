@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import { collection, addDoc, Timestamp } from 'firebase/firestore'
+    import { collection, addDoc, Timestamp, updateDoc, doc } from 'firebase/firestore'
     import { ref, update } from 'firebase/database';
     import {fstore, db, app} from '../../../firebase';
     import Icon from '@iconify/svelte';
@@ -8,10 +8,8 @@
     import {postStore} from '../../../stores/postStore'
 
     const params = $page.params.editId;
-    console.log(params)
-    
 
-    let title, tags, qt, qta, content, mtags = false, express;
+    let title, tags, qt, qta, content, mtags = false, express, id;
     let editor;
       export let toolbarOptions = [
           [{ header: 1 }, { header: 2 }, { header: 3 }, { header: 4 }, { header: 5 }, { header: 6 },"blockquote", "link", "image", "code-block", "video"],
@@ -33,12 +31,14 @@
           });
 
           let unsubscribe = postStore.subscribe(async data => {
+            if(data)
             quill.root.innerHTML = (data[parseInt(params)].content).replaceAll('<br>', '\n');
             title = data[parseInt(params)].title
             tags = (data[parseInt(params)].tags).join(', ');
             qt = data[parseInt(params)].qt
             qta = data[parseInt(params)].qta
             express = data[parseInt(params)].express
+            id = data[parseInt(params)].id
             });
 
           document.querySelectorAll('pre').forEach(el=>{
@@ -60,7 +60,8 @@
             tags: Array.isArray(tags) ? tags : tags.split(','),
             qt: qt,
             qta: qta,
-            content: (quill.root.innerHTML).replaceAll('\n', "<br>")
+            content: (quill.root.innerHTML).replaceAll('\n', "<br>"),
+            express: express
         }
         content = ((formData.content).replaceAll('&lt;', '<')).replaceAll('&gt;', '>');
         tags = formData.tags
@@ -74,20 +75,19 @@
             tags: tags,
             qt: qt,
             qta: qta,
-            content: content
+            content: content,
+            express: express
         }
           try {
-              const docRef = await addDoc(collection(fstore, "posts"), {
+              const docRef = doc(fstore, "posts", id);
+              await updateDoc(docRef, {
                   ...formData,
                   content: content,
-                  createdAt: Timestamp.fromDate(new Date()),
+                  updatedAt: Timestamp.fromDate(new Date()),
                   author: 'Faisal Shohag',
-                  like: 0,
-                  comments: [],
-                  reports: [],
-                  read: 0
-              });
-              console.log('Document written with ID: ', docRef.id);
+              })
+
+              console.log('Document updated');
           } catch(err){
               console.log(err);
           }
