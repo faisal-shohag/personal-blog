@@ -93,7 +93,7 @@
 </svelte:head>
 
 <Navbar
-  navClass="sticky top-0 flex justify-between items-center shadow-sm p-1 font-hind bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-5 border-1 border-gray-100 z-[99]"
+  navClass="sticky top-0 flex justify-between items-center shadow-sm p-1 font-hind bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-5 dark:bg-opacity-20 border-1 border-gray-100 z-[99]"
   let:hidden
   let:toggle
 >

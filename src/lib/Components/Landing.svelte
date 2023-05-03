@@ -28,7 +28,7 @@ import planet2 from '../../images/planet2.svg'
 
     <div class="animate-pulse flex flex-col justify-center items-center">
         <img class="h-[50px]" alt="" src={planet2}/>
-        <div class="text-sm font-poppins font-bold">OS</div>
+        <div class="text-sm font-poppins font-bold">AI</div>
     </div>
 </div>
 

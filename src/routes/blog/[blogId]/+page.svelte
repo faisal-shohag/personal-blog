@@ -5,14 +5,21 @@
   import { postStore } from "../../../stores/postStore";
   import ship from '../../../images/space-shuttle.png';
   import ship2 from '../../../images/astronaut.png';
+  // import Error from "./+error.svelte";
   const params = $page.params.blogId;
 
   let post;
   let content;
   let unsubscribe = postStore.subscribe(async (data) => {
     // console.log(data);
-    post = data[parseInt(params)];
-    if (post) content = post.content.replaceAll("<br>", "\n");
+   // try{
+      post = data[parseInt(params)];
+      if(post) content = post.content.replaceAll("<br>", "\n");
+    // } catch(err){
+    //   console.log(err);
+    //   throw new Error('Error')
+    // }
+    
   });
 
   onMount(async () => {
@@ -27,9 +34,9 @@
 </script>
 
 {#if post}
-<div class="ship max-sm:hidden max-md:hidden fixed bottom-0 left-[-100px] z-[100]">
+<!-- <div class="ship max-sm:hidden max-md:hidden fixed bottom-0 left-[-100px] z-[100]">
   <img class="h-[200px]" src={ship2} alt="" />
-</div>
+</div> -->
 
 <div class="ship max-sm:hidden max-md:hidden fixed bottom-0 right-0">
   <img class="h-[200px]" src={ship} alt="" />
@@ -92,6 +99,9 @@
   </div>
 
   <hr />
+
+  {:else}
+  <div>Blog Not Found</div>
 {/if}
 
 <style>
