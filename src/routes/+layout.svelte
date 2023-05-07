@@ -179,16 +179,26 @@
       >
       <AppRailTile
         on:click={openSide}
+        label="Resume"
+        tag="a"
+        href={"/resume"}
+        value={2}
+        class="{'/resume' === $page.url.pathname ? '!bg-primary-500' : ''}"
+        ><Icon class="text-3xl" icon="line-md:document-list" />
+        </AppRailTile
+      >
+      <!-- <AppRailTile
+        on:click={openSide}
         label="Portfolio"
         tag="a"
-        href={"/portfolio"}
+        href={"/resume"}
         value={2}
-        class="{'/portfolio' === $page.url.pathname ? '!bg-primary-500' : ''}"
+        class="{'/resume' === $page.url.pathname ? '!bg-primary-500' : ''}"
         ><Icon
           class="text-3xl"
           icon="line-md:buy-me-a-coffee-filled"
         /></AppRailTile
-      >
+      > -->
       <AppRailTile
         on:click={openSide}
         label="About"

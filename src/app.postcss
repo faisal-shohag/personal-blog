@@ -1,7 +1,8 @@
 /* Write your global styles here, in PostCSS syntax */
 @import url('https://fonts.cdnfonts.com/css/georgia-pro-cond');
-@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Montserrat:ital,wght@0,100;0,200;0,400;0,600;1,100;1,300;1,600;1,900&family=Poppins:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,400&family=Montserrat:ital,wght@0,100;0,200;0,400;0,600;1,100;1,300;1,600;1,900&family=Poppins:wght@300;400;500;700&display=swap');
 @import url('https://fonts.maateen.me/kalpurush/font.css');
+@import url('https://fonts.googleapis.com/css2?family=Foldit:wght@100;300;400;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,6 +26,11 @@
     
 }
 
+@layer utilities {
+    .zoom-50{
+        zoom: 50%;
+    }
+}
 
 body { @apply bg-surface-50-900-token; }
 

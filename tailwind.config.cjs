@@ -17,7 +17,9 @@ const config = {
         hind: "'Hind Siliguri', sans-serif",
         lato: "'Lato', sans-serif",
         poppins: "'Poppins', sans-serif",
-        kalp: "'Kalpurush', sans-serif"
+        kalp: "'Kalpurush', sans-serif",
+        fold: "'Foldit', cursive"
+
       },
       //TODO
       //color customization
