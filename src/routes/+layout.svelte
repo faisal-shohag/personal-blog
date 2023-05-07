@@ -24,8 +24,10 @@
   import Icon from "@iconify/svelte";
   import { page } from "$app/stores";
 
-  const q = $page.url.searchParams.get('q');
-  console.log(q);
+  const l = $page.url.searchParams.get('l');
+  const r = $page.url.searchParams.get('r');
+  console.log(l);
+  console.log(r);
 
   const getReadTime = (s) => {
     s = s.replace(/(^\s*)|(\s*$)/gi, "");
