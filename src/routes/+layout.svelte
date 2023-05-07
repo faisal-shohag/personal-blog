@@ -23,6 +23,10 @@
   import { writable } from "svelte/store";
   import Icon from "@iconify/svelte";
   import { page } from "$app/stores";
+
+  const q = $page.url.searchParams.get('q');
+  console.log(q);
+
   const getReadTime = (s) => {
     s = s.replace(/(^\s*)|(\s*$)/gi, "");
     s = s.replace(/[ ]{2,}/gi, " ");
@@ -200,7 +204,7 @@
     on:touchstart={() => {
       return open ? (sideOpen = !sideOpen) : open;
     }}
-    class="container body p-10 pt-4 space-y-4 max-sm:p-3 rounded-b-sm h-auto shadow-lg"
+    class="container lg:max-w-[1000px] body p-10 pt-4 space-y-4 max-sm:p-3 rounded-b-sm h-auto shadow-lg"
   >
     <slot />
   </div>

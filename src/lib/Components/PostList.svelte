@@ -24,8 +24,10 @@
   >
     <div>{createdAt}</div>
     · {mins} min read ·
-    {#each tags as tag}
+    {#each tags as tag, index}
+      {#if index<3}
       <code>{tag}</code>
+      {/if}
     {/each}
   </div>
 </div>

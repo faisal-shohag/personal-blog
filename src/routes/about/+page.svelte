@@ -9,10 +9,10 @@
     </div>
     <hr/>
     <div class="p-4 inline-block items-center flex-wrap w-full variant-glass rounded-lg">
-        This is a personal blog and portfolio website. I basically created it, in order to stay focus on study about <code class="mx-1">DSA</code> , <code class="mx-1">OS</code> and <code class="mx-1">AI.</code>
+        This is a personal blog and portfolio website. I basically created it, in order to stay focus on study about <code class="mx-1">DS</code> , <code class="mx-1">Algo.</code> and <code class="mx-1">AI</code>.
         <div class="flex  flex-wrap items-center">
-        This project is made with <Icon class="mx-1" icon="logos:svelte-kit" /> and <Icon icon="vscode-icons:file-type-firebase" />.</div> Svelte is my favourite framework (actually a compiler) because of it's tiny bundle size and super fast behaviour!
-        <div class="flex items-center gap-1">You can find entire project on<Icon icon="octicon:logo-github-16" />.</div>
+        This project is made with <Icon class="mx-1" icon="logos:svelte-kit" /> and <Icon icon="vscode-icons:file-type-firebase" />.</div> Svelte is my favourite framework (actually a compiler) because of it's tiny bundle size and blazing fast behaviour!
+        <div class="flex flex-wrap items-center gap-1">You can find the entire project on<Icon icon="octicon:logo-github-16" />.</div>
     </div>
 </div>
 

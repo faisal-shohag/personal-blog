@@ -5,8 +5,15 @@
   import { postStore } from "../../../stores/postStore";
   import ship from '../../../images/space-shuttle.png';
   import ship2 from '../../../images/astronaut.png';
+  import SideList from "../../../lib/Components/SideList.svelte";
+  import SideListSkeleton from "../../../lib/Components/SideListSkeleton.svelte";
   // import Error from "./+error.svelte";
   const params = $page.params.blogId;
+
+  let icons = {
+    "leetcode": "simple-icons:leetcode",
+    "codeforces": "simple-icons:codeforces"
+  }
 
   let post;
   let content;
@@ -34,10 +41,20 @@
 </script>
 
 {#if post}
+
+{#if post.problems.length > 0}
+<SideListSkeleton style="max-xl:hidden fixed right-10 min-w-[350px]">
+  {#each post.problems as problem}
+  <SideList name={problem.name} icon={icons[problem.owner]} link={problem.link}/>
+  {/each}
+</SideListSkeleton>
+{/if}
+
+
+
 <!-- <div class="ship max-sm:hidden max-md:hidden fixed bottom-0 left-[-100px] z-[100]">
   <img class="h-[200px]" src={ship2} alt="" />
 </div> -->
-
 <div class="ship max-sm:hidden max-md:hidden fixed bottom-0 right-0">
   <img class="h-[200px]" src={ship} alt="" />
 </div>
@@ -97,7 +114,13 @@
     </figure>
     {@html content}
   </div>
-
+  {#if post.problems.length > 0}
+<SideListSkeleton style="md:hidden">
+  {#each post.problems as problem}
+  <SideList name={problem.name} icon={icons[problem.owner]} link={problem.link}/>
+  {/each}
+</SideListSkeleton>
+{/if}
   <hr />
 
   {:else}
