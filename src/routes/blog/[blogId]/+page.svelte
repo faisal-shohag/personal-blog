@@ -36,6 +36,9 @@
       el.classList.add("mt-3");
       el.classList.add("mb-3");
       el.classList.add("rounded-lg");
+      setTimeout(()=>{
+        el.classList.add("pre-wrap");
+      }, 2000)
     });
 
     MathJax.typeset();
@@ -135,5 +138,6 @@
   .blog-content {
     font-family: "Poppins", Kalpurush;
   }
+
 
 </style>

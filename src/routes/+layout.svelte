@@ -36,7 +36,7 @@
     let words = s.split(" ").filter(function (str) {
       return str != "";
     }).length;
-    return parseInt(words / 200);
+    return Math.ceil(words / 200);
   };
 
   const getDate = (date) => {
