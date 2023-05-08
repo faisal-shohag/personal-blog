@@ -36,8 +36,8 @@
     });
 
     let title, tags, qt, qta, content, mtags = false, express;
-
-    
+    let problems = [];
+    let pname, plink, powner;
     const show = ()=>{
       let formData = {
           title: title,
@@ -54,8 +54,6 @@
     }
 
     const getHtml = async () =>{
-        //console.log("triggered!")
-       // console.log((quill.root.innerHTML).replaceAll('\n', "<br>"))
        let formData = {
           title: title,
           tags: tags,
@@ -64,8 +62,6 @@
           content: content,
           express: express
       }
-        //content = ((formData.content).replaceAll('&lt;', '<')).replaceAll('&gt;', '>');
-        
 
         try {
             const docRef = await addDoc(collection(fstore, "posts"), {
@@ -76,41 +72,58 @@
                 like: 0,
                 comments: [],
                 reports: [],
-                read: 0
+                read: 0,
+                problems: [...problems]
             });
             console.log('Document written with ID: ', docRef.id);
-            // await update(ref(db, "posts/"+docRef.id), {
-            //     like: 0,
-            //     comments: [],
-            //     reports: [],
-            //     read: 0
-            // })
         } catch(err){
             console.log(err);
         }
     }
 
+    const addProblem = ()=>{
+      problems.push({
+        name: pname,
+        link: plink,
+        owner: powner
+      });
+      console.log(problems);
+      problems = problems
+    }
 
 </script>
 
 
-<label class="label">
-	<input class="input" type="text" placeholder="Title" bind:value={title} />
-</label>
-
+<div class="text-2xl font-hind font-bold">Add Info.</div>
+<div class="variant-glass p-5 rounded-md flex flex-col gap-2">
+<input class="input" type="text" placeholder="Title" bind:value={title} />
 <input class="input" type="text" placeholder="Tags" bind:value={tags}/>
-
 <input class="input" type="text" placeholder="Quote" bind:value={qt}/>
 <input class="input" type="text" placeholder="QuoteAuthor" bind:value={qta} />
-<input class="input" type="text" placeholder="QuoteAuthor" bind:value={express} />
-				
+<input class="input" type="text" placeholder="Express few words..." bind:value={express} />
+</div>		
+<!-- problem show -->
+<div class="text-2xl font-hind font-bold">Related Problems</div>
+{#if problems.length>0}
+{#each problems as problem}
+  <div class="p-2 bg-green-500 text-white rounded-full mt-2">{problem.name}</div>
+{/each}
+{/if}
+<!-- problem adding -->
+<div>
+  <input class="input" type="text" placeholder="Problem Name" bind:value={pname}/>
+  <input class="input" type="text" placeholder="Problem Owner" bind:value={powner}/>
+  <input class="input" type="text" placeholder="Problem link" bind:value={plink}/>
+  <button on:click={addProblem} class="mt-5 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add</button>
+</div>
 
+<div class="text-2xl font-hind font-bold">Editor</div>
 <div class="editor-wrapper">
     <div bind:this={editor} />
   </div>
 <button on:click={show} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Show</button>
  
-
+<div class="text-2xl font-hind font-bold">Preview</div>
 <div class="flex gap-3 items-center md:float-right max-sm:hidden">
   <span class="badge variant-soft-primary cursor-pointer hover:variant-filled-primary">Stack</span>
   <span class="badge variant-soft-primary cursor-pointer hover:variant-filled-primary">Algo</span>

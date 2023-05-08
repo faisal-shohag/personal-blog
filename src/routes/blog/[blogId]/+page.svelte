@@ -26,7 +26,7 @@
     //   console.log(err);
     //   throw new Error('Error')
     // }
-    
+    MathJax.typeset();
   });
 
   onMount(async () => {
@@ -37,6 +37,10 @@
       el.classList.add("mb-3");
       el.classList.add("rounded-lg");
     });
+
+    MathJax.typeset();
+   // MathJax.Hub.Queue(['Typeset', MathJax.Hub])
+    
   });
 </script>
 

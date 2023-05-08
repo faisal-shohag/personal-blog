@@ -10,7 +10,7 @@
 
 <div class="font-hind p-2 text-black dark:text-gray-400 variant-glass rounded">
   <div class="text-xl font-bold">{title}</div>
-  <div class="text-md font-kalp">{express}...</div>
+  <div class="text-md font-kalp">{@html express}...</div>
   <div class="flex space-x-2 items-center">
     <img
       class="w-5 h-5 max-sm:w-3 max-sm:h-3 rounded-full"
