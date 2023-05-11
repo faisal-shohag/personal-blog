@@ -18,15 +18,14 @@
   let post;
   let content;
   let unsubscribe = postStore.subscribe(async (data) => {
-    // console.log(data);
-   // try{
       post = data[parseInt(params)];
-      if(post) content = post.content.replaceAll("<br>", "\n");
-    // } catch(err){
-    //   console.log(err);
-    //   throw new Error('Error')
-    // }
-    MathJax.typeset();
+      if(post){
+        content = post.content.replaceAll("<br>", "\n");
+        // content = post.content.replaceAll('<pre class="ql-syntax hljs language-ini p-3 mt-3 mb-3 rounded-lg" spellcheck="false">', '<pre><code>');
+        // content = post.content.replaceAll('<pre class="ql-syntax hljs language-ava p-3 mt-3 mb-3 rounded-lg" spellcheck="false">', '<pre><code>');
+        // content = post.content.replaceAll('<pre class="ql-syntax hljs language-go p-3 mt-3 mb-3 rounded-lg" spellcheck="false">', '<pre><code>');
+        // content = post.content.replaceAll("</pre>", "</code></pre>");
+      }    
   });
 
   onMount(async () => {
@@ -36,14 +35,29 @@
       el.classList.add("mt-3");
       el.classList.add("mb-3");
       el.classList.add("rounded-lg");
-      setTimeout(()=>{
-        el.classList.add("pre-wrap");
-      }, 2000)
+      hljs.highlightBlock(el);
+      hljs.highlightAll();
+      hljs.initLineNumbersOnLoad();
     });
 
+    // document.querySelectorAll("hljs").forEach((el) => {
+    //   hljs.highlightBlock(el);
+    //   // hljs.highlightAll();
+    //   hljs.initLineNumbersOnLoad();
+    // });
+
     MathJax.typeset();
-   // MathJax.Hub.Queue(['Typeset', MathJax.Hub])
-    
+    setTimeout(()=>{
+      MathJax.typeset(); 
+      document.querySelectorAll("pre").forEach((el) => {
+        hljs.highlightElement(el);  
+        hljs.highlightBlock(el);
+        hljs.highlightAll();
+        hljs.initLineNumbersOnLoad();
+        
+
+      });
+    },3000);
   });
 </script>
 
@@ -131,12 +145,12 @@
   <hr />
 
   {:else}
-  <div>Blog Not Found</div>
+  <div>Loading...</div>
 {/if}
 
 <style>
   .blog-content {
-    font-family: "Poppins", Kalpurush;
+    font-family: "Lato", Kalpurush;
   }
 
 
