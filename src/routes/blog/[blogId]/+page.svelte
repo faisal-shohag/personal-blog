@@ -4,10 +4,20 @@
   import { page } from "$app/stores";
   import { postStore } from "../../../stores/postStore";
   import ship from '../../../images/space-shuttle.png';
-  import ship2 from '../../../images/astronaut.png';
+  // import ship2 from '../../../images/astronaut.png';
   import SideList from "../../../lib/Components/SideList.svelte";
   import SideListSkeleton from "../../../lib/Components/SideListSkeleton.svelte";
-  // import Error from "./+error.svelte";
+  import {
+    doc,
+    query,
+    orderBy,
+    collection,
+    onSnapshot,
+  } from "firebase/firestore";
+  import { fstore } from "../../../firebase";
+  // import { push } from "firebase/database";
+  import CommentCard from "../../../lib/Components/CommentCard.svelte";
+  // import { comment } from "svelte/internal";
   const params = $page.params.blogId;
 
   let icons = {
@@ -15,18 +25,15 @@
     "codeforces": "simple-icons:codeforces"
   }
 
+  const getDate = (date) => {
+    date = date.toDate().toString();
+    date = date.split(" ");
+    return `${date[2]} ${date[1]} ${date[3]}`;
+  };
+
   let post;
   let content;
-  let unsubscribe = postStore.subscribe(async (data) => {
-      post = data[parseInt(params)];
-      if(post){
-        content = post.content.replaceAll("<br>", "\n");
-        // content = post.content.replaceAll('<pre class="ql-syntax hljs language-ini p-3 mt-3 mb-3 rounded-lg" spellcheck="false">', '<pre><code>');
-        // content = post.content.replaceAll('<pre class="ql-syntax hljs language-ava p-3 mt-3 mb-3 rounded-lg" spellcheck="false">', '<pre><code>');
-        // content = post.content.replaceAll('<pre class="ql-syntax hljs language-go p-3 mt-3 mb-3 rounded-lg" spellcheck="false">', '<pre><code>');
-        // content = post.content.replaceAll("</pre>", "</code></pre>");
-      }    
-  });
+  let comments = [];
 
   onMount(async () => {
     document.querySelectorAll("pre").forEach((el) => {
@@ -35,30 +42,41 @@
       el.classList.add("mt-3");
       el.classList.add("mb-3");
       el.classList.add("rounded-lg");
-      hljs.highlightBlock(el);
-      hljs.highlightAll();
-      hljs.initLineNumbersOnLoad();
     });
-
-    // document.querySelectorAll("hljs").forEach((el) => {
-    //   hljs.highlightBlock(el);
-    //   // hljs.highlightAll();
-    //   hljs.initLineNumbersOnLoad();
-    // });
-
-    MathJax.typeset();
     setTimeout(()=>{
       MathJax.typeset(); 
       document.querySelectorAll("pre").forEach((el) => {
         hljs.highlightElement(el);  
-        hljs.highlightBlock(el);
-        hljs.highlightAll();
-        hljs.initLineNumbersOnLoad();
-        
-
       });
     },3000);
+
+     //getpost
+    const docRef= doc(fstore, "posts", params)
+    onSnapshot(docRef, (doc) => {
+      // console.log(doc.data());
+      post = doc.data();
+      content = post.content.replaceAll("<br>", "\n");
+      // console.log(post);
+    });
+
+    //getcomments
+    // const q = query(
+    //   collection(fstore, `posts/${params}/comments`),
+    //   orderBy("createdAt", "desc")
+    // );
+
+    // onSnapshot(q, (snapshot) => {
+    //   snapshot.forEach((doc) => {
+    //     // console.log(doc.data());
+    //     comments.push(doc.data());
+    //   });
+    //   comments = comments;
+    // });
+
   });
+
+ 
+
 </script>
 
 {#if post}
@@ -72,10 +90,6 @@
 {/if}
 
 
-
-<!-- <div class="ship max-sm:hidden max-md:hidden fixed bottom-0 left-[-100px] z-[100]">
-  <img class="h-[200px]" src={ship2} alt="" />
-</div> -->
 <div class="ship max-sm:hidden max-md:hidden fixed bottom-0 right-0">
   <img class="h-[200px]" src={ship} alt="" />
 </div>
@@ -102,7 +116,7 @@
     </div>
     <div class="flex gap-1 items-center justify-between">
       <Icon icon="line-md:calendar" />
-      <span class="text-orange">{post.createdAt}</span>
+      <span class="text-orange">{getDate(post.createdAt)}</span>
     </div>
   </div>
   <hr />
@@ -133,7 +147,9 @@
         </div>
       </figcaption>
     </figure>
+    <div class="">
     {@html content}
+  </div>
   </div>
   {#if post.problems.length > 0}
 <SideListSkeleton style="md:hidden">
@@ -142,11 +158,17 @@
   {/each}
 </SideListSkeleton>
 {/if}
-  <hr />
 
   {:else}
   <div>Loading...</div>
 {/if}
+<hr />
+
+<!-- <div class="text-2xl font-bold font-Lato"> Comments({comments.length})</div>
+{#each comments as c}
+  <CommentCard photoUrl={c.author.photoURL} author={c.author.name} time={getDate(c.createdAt)} comment={c.comment} like={c.like}/>
+{/each} -->
+
 
 <style>
   .blog-content {

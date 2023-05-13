@@ -1,4 +1,5 @@
 <script>
+  import Icon from '@iconify/svelte';
   export let avatar;
   export let author;
   export let title;
@@ -6,9 +7,11 @@
   export let createdAt;
   export let tags;
   export let mins;
+  export let read;
 </script>
 
-<div class="font-hind p-2 text-black dark:text-gray-400 variant-glass rounded">
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div on:click class="font-hind p-2 text-black dark:text-gray-400 variant-glass rounded">
   <div class="text-xl font-bold">{title}</div>
   <div class="text-md exp">{@html express}...</div>
   <div class="flex space-x-2 items-center">
@@ -17,7 +20,7 @@
       src={avatar}
       alt="Rounded avatar"
     />
-    <div class="text-sm font-bold max-sm:text-[10px]">{author}</div>
+    <div class="text-sm font-bold max-sm:text-[10px]">{author}</div> ・ <div class="font-lato flex read gap-1 max-sm:text-[11px]"><Icon icon="ic:baseline-remove-red-eye" />{read}</div>
   </div>
   <div
     class="flex flex-wrap gap-2 mt-2 items-center text-gray-500 font-poppins text-sm max-sm:text-[10px]"
@@ -36,5 +39,8 @@
 <style>
   .exp{
     font-family: 'Lato', Kalpurush;
+  }
+  .read{
+    align-items: center;
   }
 </style>

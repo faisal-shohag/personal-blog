@@ -5,14 +5,80 @@
   import PostSkeleton from "../lib/Components/PostSkeleton.svelte";
   import Landing from "../lib/Components/Landing.svelte";
   import venus from '../images/venus.svg';
-  import bottom from '../images/alien_cute.png';
+  // import bottom from '../images/alien_cute.png';
   import SectionHead from "../lib/Components/SectionHead.svelte";
+  import {
+    collection,
+    query,
+    orderBy,
+    limit,
+    onSnapshot,
+    updateDoc,
+
+    doc
+
+  } from "firebase/firestore";
+  import { fstore } from "../firebase";
+  import { read } from "@popperjs/core";
+
   let posts = [];
-  let unsubscribe = postStore.subscribe(async (data) => {
-    posts = data;
+  // let unsubscribe = postStore.subscribe(async (data) => {
+  //   posts = data;
+  // });
+
+  const getReadTime = (s) => {
+    s = s.replace(/(^\s*)|(\s*$)/gi, "");
+    s = s.replace(/[ ]{2,}/gi, " ");
+    s = s.replace(/\n /, "\n");
+    let words = s.split(" ").filter(function (str) {
+      return str != "";
+    }).length;
+    return Math.ceil(words / 200);
+  };
+
+  const getDate = (date) => {
+    date = date.toDate().toString();
+    date = date.split(" ");
+    return `${date[2]} ${date[1]} ${date[3]}`;
+  };
+
+  onMount(()=>{
+    const q = query(
+      collection(fstore, "posts"),
+      orderBy("createdAt", "desc"),
+      limit(10)
+    );
+    // if(posts.length==0) {
+    onSnapshot(q, (snapshot) => {
+      posts = [];
+      snapshot.forEach((doc) => {
+        posts.push({
+          ...doc.data(),
+          mins: getReadTime(doc.data().content),
+          createdAt: getDate(doc.data().createdAt),
+          id: doc.id
+        });
+      });
+
+      posts = posts;
+    });
+  // }
+    
   });
 
-  onDestroy(unsubscribe);
+  const readHandle = async(id, read) => {
+    const postRef = doc(fstore, "posts", id);
+    try{
+      const res = await updateDoc(postRef, {
+        read: read+1 
+      })
+      console.log(res);
+    } catch(err){
+      console.log(err);
+    }
+  }
+
+ 
 </script>
 
 <Landing/>
@@ -25,8 +91,10 @@
 {#if posts.length > 0}
 <SectionHead title="Most Recent"/>
   {#each posts as post, index}
-    <a href="/blog/{index}">
+    <a href="/blog/{post.id}">
       <PostList
+      on:click={()=> readHandle(post.id, post.read)}
+        read={post.read}
         author={post.author}
         title={post.title}
         express={post.express}
