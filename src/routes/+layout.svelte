@@ -8,34 +8,45 @@
     AppRail,
     AppRailTile,
   } from "@skeletonlabs/skeleton";
-  import { Navbar, NavBrand } from "flowbite-svelte";
+  import { Navbar, NavBrand, Dropdown, DropdownItem, DropdownDivider, DropdownHeader, Chevron } from "flowbite-svelte";
   import "../app.postcss";
- 
-  // import { postStore } from "../stores/postStore";
-  // import { onMount } from "svelte";
-  // import { writable } from "svelte/store";
   import Icon from "@iconify/svelte";
   import { page } from "$app/stores";
+  import {onAuthStateChanged, signOut} from 'firebase/auth'
+  import { fauth, db } from "../firebase";
+  import {onMount} from 'svelte';
+  import {userStore} from "../stores/userStore"
 
-  // const l = $page.url.searchParams.get('l');
-  // const r = $page.url.searchParams.get('r');
-  // console.log(l);
-  // console.log(r);
-
-
-
-  // onMount(async () => {
-    
-  // });
-  // const storeValue = writable(0);
+  let me;
+  onMount(async () => {
+    onAuthStateChanged(fauth, async(user) => {
+        if(user) {
+            userStore.set({...user, loggedIn: true});
+            me = user;
+        } else{
+           me = false
+            console.log('User Not Logged In!');
+            userStore.set({loggedIn: false});
+        }
+       
+    });
+  });
 
   let sideOpen = false;
 
   const openSide = () => {
-    console.log("sideOpen");
+    // console.log("sideOpen");
     sideOpen = !sideOpen;
   };
   $: open = sideOpen;
+
+  const logOut = async() =>{
+      try {
+          await signOut(fauth);
+      } catch (err) {
+        console.log(err);
+      }
+  }
 </script>
 
 <svelte:head>
@@ -76,6 +87,7 @@
                     },
                     tags: 'ams'
         };
+       
   </script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script
@@ -84,6 +96,8 @@
       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   
 </svelte:head>
+
+
 
 <Navbar
   navClass="sticky top-0 flex justify-between items-center shadow-sm p-1 font-hind bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-5 dark:bg-opacity-20 border-1 border-gray-100 z-[99]"
@@ -126,7 +140,7 @@
     <img
       src="https://cdn-icons-png.flaticon.com/512/534/534626.png"
       class="mr-3 h-6 sm:h-9"
-      alt="Flowbite Logo"
+      alt="Logo"
     />
     <span
       class="max-sm:hidden self-center whitespace-nowrap text-xl font-bold font-poppins dark:text-orange-600 text-orange-500"
@@ -134,8 +148,28 @@
       Faisal.
     </span>
   </NavBrand>
+ 
+  {#if me}
+  <Chevron aligned><div><img class="w-[30px] h-[30px] rounded-full s-nb_ptBq0IalQ" src={me.photoURL} alt="Rounded avatar"></div></Chevron>
+  <Dropdown>
+    <DropdownHeader>{me.displayName}</DropdownHeader>
+    <DropdownItem><div class="flex justify-between items-center"><div class="flex gap-1 items-center"><Icon icon="mdi:theme-light-dark" /> Theme</div> <LightSwitch/></div></DropdownItem>
+    <DropdownItem slot="footer" on:click={logOut}>Sign out</DropdownItem>
+  </Dropdown>
+  {:else}
+  <div class="flex gap-2 items-center">
+  <a href="/auth"><button type="button" class="btn variant-soft-primary max-sm:btn-sm">
+    <span><Icon icon="bi:google" /></span>
+    <span>Sign In</span>
+  </button></a>
+  <Chevron aligned><Icon icon="entypo:dots-three-vertical" /></Chevron>
+  <Dropdown>
+    <DropdownItem><div class="flex justify-between items-center"><div class="flex gap-1 items-center"><Icon icon="mdi:theme-light-dark" /> Theme</div> <LightSwitch/></div></DropdownItem>
+  </Dropdown>
+</div>
+  {/if}
+ 
 
-  <div><LightSwitch /></div>
 </Navbar>
 
 <AppShell

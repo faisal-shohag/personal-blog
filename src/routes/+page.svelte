@@ -1,7 +1,7 @@
 <script>
   import { onDestroy, onMount } from "svelte";
   import PostList from "../lib/Components/PostList.svelte";
-  import { postStore } from "../stores/postStore";
+  // import { postStore } from "../stores/postStore";
   import PostSkeleton from "../lib/Components/PostSkeleton.svelte";
   import Landing from "../lib/Components/Landing.svelte";
   import venus from '../images/venus.svg';
@@ -14,12 +14,12 @@
     limit,
     onSnapshot,
     updateDoc,
-
-    doc
-
+    doc,
+    increment
   } from "firebase/firestore";
   import { fstore } from "../firebase";
-  import { read } from "@popperjs/core";
+  // import { read } from "@popperjs/core";
+  // import {userStore} from "../stores/userStore"
 
   let posts = [];
   // let unsubscribe = postStore.subscribe(async (data) => {
@@ -70,13 +70,20 @@
     const postRef = doc(fstore, "posts", id);
     try{
       const res = await updateDoc(postRef, {
-        read: read+1 
+        read: increment(1)
       })
-      console.log(res);
+      // console.log(res);
     } catch(err){
       console.log(err);
     }
   }
+ 
+//  const unsubscribe = userStore.subscribe(async (data) =>{
+//     console.log(data);
+//  })
+ 
+//  onDestroy(unsubscribe);
+// console.log($userStore);
 
  
 </script>

@@ -2,7 +2,8 @@
   import { onMount } from "svelte";
   import Icon from "@iconify/svelte";
   import { page } from "$app/stores";
-  import { postStore } from "../../../stores/postStore";
+  import {goto} from '$app/navigation';
+  // import { postStore } from "../../../stores/postStore";
   import ship from '../../../images/space-shuttle.png';
   // import ship2 from '../../../images/astronaut.png';
   import SideList from "../../../lib/Components/SideList.svelte";
@@ -13,11 +14,16 @@
     orderBy,
     collection,
     onSnapshot,
+    updateDoc,
+    deleteDoc,
+    addDoc, Timestamp
   } from "firebase/firestore";
   import { fstore } from "../../../firebase";
   // import { push } from "firebase/database";
   import CommentCard from "../../../lib/Components/CommentCard.svelte";
-  // import { comment } from "svelte/internal";
+  import SendInput from "../../../lib/Components/SendInput.svelte";
+  import { userStore } from "../../../stores/userStore";
+  import { Toast, toastStore } from '@skeletonlabs/skeleton';
   const params = $page.params.blogId;
 
   let icons = {
@@ -60,24 +66,62 @@
     });
 
     //getcomments
-    // const q = query(
-    //   collection(fstore, `posts/${params}/comments`),
-    //   orderBy("createdAt", "desc")
-    // );
+    const q = query(
+      collection(fstore, `posts/${params}/comments`),
+      orderBy("createdAt", "desc")
+    );
 
-    // onSnapshot(q, (snapshot) => {
-    //   snapshot.forEach((doc) => {
-    //     // console.log(doc.data());
-    //     comments.push(doc.data());
-    //   });
-    //   comments = comments;
-    // });
+    onSnapshot(q, (snapshot) => {
+      comments = [];
+      snapshot.forEach((doc) => {
+        comments.push({...doc.data(), id: doc.id});
+      });
+      comments = comments;
+    });
 
   });
 
- 
+ let commentText = "";
+const handleSubmit = async() => {
+  try {
+        const docRef = await addDoc(collection(fstore, `posts/${params}/comments`), {
+                comment: commentText,
+                createdAt: Timestamp.fromDate(new Date()),
+                author: {
+                  name: $userStore.displayName,
+                  photoURL: $userStore.photoURL,
+                  id: $userStore.uid
+                },
+            });
+            console.log('Comment written with ID: ', docRef.id);
+        } catch(err){
+            console.log(err);
+        }
+  
+}
+// const likeHandle = async (commentId, authorId) => {
+//       console.log(commentId, authorId);
+//       if($userStore.uid ===  authorId){
+//         toastStore.trigger({
+//         message: 'You can not love your own comment!',
+//         background: 'variant-filled-warning',
+//       })
+//       }
+      
+// }
+
+const deleteMyComment = async(id) => {
+    try{
+        await deleteDoc(doc(fstore, "posts",`${params}`, "comments", `${id}`));
+    } catch(err) {
+      console.log(err);
+    }
+}
+
 
 </script>
+<Toast/>
+
 
 {#if post}
 
@@ -164,10 +208,19 @@
 {/if}
 <hr />
 
-<!-- <div class="text-2xl font-bold font-Lato"> Comments({comments.length})</div>
+
+
+{#if comments.length > 0}
+<div class="text-2xl font-bold font-Lato"> Comments({comments.length})</div>
+<SendInput  on:submit={handleSubmit} bind:commentText/>
 {#each comments as c}
-  <CommentCard photoUrl={c.author.photoURL} author={c.author.name} time={getDate(c.createdAt)} comment={c.comment} like={c.like}/>
-{/each} -->
+  <CommentCard on:deleteComment={()=>deleteMyComment(c.id)} mycomment={c.author.id == $userStore.uid} photoUrl={c.author.photoURL} author={c.author.name} time={getDate(c.createdAt)} comment={c.comment} like={c.like}/>
+{/each}
+{:else}
+<div class="text-2xl font-bold font-Lato"> Comments(0)</div>
+<SendInput on:submit={handleSubmit} bind:commentText/>
+{/if}
+
 
 
 <style>
