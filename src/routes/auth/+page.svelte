@@ -10,7 +10,7 @@
 const handleSignIn = async () => {
     try {
         let res = await signInWithPopup(fauth, new GoogleAuthProvider());
-        console.log(res);
+        // console.log(res);
     } catch (err) {
         console.log(err);
     }
@@ -19,7 +19,7 @@ const handleSignIn = async () => {
 onMount(async () => {
     onAuthStateChanged(fauth, async(user) => {
         if(user) {
-            console.log(user);
+            // console.log(user);
             // userStore.set({...user, loggedIn: true});
             let data ={
                 name: user.displayName,
@@ -34,7 +34,7 @@ onMount(async () => {
             }
             goto('/');
         } else{
-            console.log('User Not Logged In!');
+            // console.log('User Not Logged In!');
         }
         
     });

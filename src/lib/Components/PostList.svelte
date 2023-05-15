@@ -8,6 +8,7 @@
   export let tags;
   export let mins;
   export let read;
+  // export let commentCount = 0;
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -20,7 +21,8 @@
       src={avatar}
       alt="Rounded avatar"
     />
-    <div class="text-sm font-bold max-sm:text-[10px]">{author}</div> <Icon icon="ph:dot-bold" /> <div class="font-lato flex read gap-1 max-sm:text-[11px]"><Icon icon="ic:baseline-remove-red-eye" />{read}</div>
+    <!-- <Icon icon="bi:dot" /> <Icon icon="iconamoon:comment" /> {commentCount} -->
+    <div class="text-sm font-bold max-sm:text-[10px]">{author}</div> <Icon icon="bi:dot" /> <div class="font-lato flex read gap-1 max-sm:text-[11px]"><Icon icon="ic:baseline-remove-red-eye" />{read} </div>
   </div>
   <div
     class="flex flex-wrap gap-2 mt-2 items-center text-gray-500 font-poppins text-sm max-sm:text-[10px]"

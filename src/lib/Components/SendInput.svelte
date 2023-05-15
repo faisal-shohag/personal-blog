@@ -20,14 +20,14 @@
     
     <button class="input-group-shim">
         {#if $userStore.photoURL}
-        <img class="w-[30px] h-[30px] max-sm:w-3 max-sm:h-3 rounded-full" src={$userStore.photoURL} alt="Rounded avatar">
+        <img class="w-[30px] h-[30px] max-sm:w-[20px] max-sm:h-[20px] rounded-full" src={$userStore.photoURL} alt="Rounded avatar">
         {:else}
         +
         {/if}
     </button>
 	<textarea
         bind:value={commentText}
-		class="bg-transparent border-0 ring-0"
+		class="bg-transparent border-0 ring-0 commentInput"
 		name="prompt"
 		id="prompt"
 		placeholder="Write a comment..."
@@ -36,3 +36,9 @@
 	<button on:click={submit} class="variant-soft-primary text-[25px]"><Icon icon="ri:send-plane-fill" /></button>
 </div>
 					
+
+<style>
+    .commentInput {
+        font-family: 'Lato', Kalpurush;
+    }
+</style>

@@ -18,7 +18,7 @@
     }
 
 </script>
-<div class="p-0 font-lato previewer rounded-container-token overflow-hidden card">
+<div class="p-0 commentCard previewer rounded-container-token overflow-hidden card">
     {#if mycomment}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div on:click={deleteComment} class="float-right cursor-pointer p-1 text-[20px] rounded-full text-red-700"><Icon icon="ic:sharp-close" /></div>
@@ -52,6 +52,10 @@
         display: flex;
         /* justify-content: center; */
         align-items: center;
+    }
+
+    .commentCard {
+        font-family: 'Lato', Kalpurush;
     }
 </style>
 
