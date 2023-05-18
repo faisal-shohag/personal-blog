@@ -70,7 +70,7 @@
                 createdAt: Timestamp.fromDate(new Date()),
                 author: 'Faisal Shohag',
                 like: 0,
-                comments: [],
+                comments: 0,
                 reports: [],
                 read: 0,
                 problems: [...problems]

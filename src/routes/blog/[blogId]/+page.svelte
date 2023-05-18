@@ -16,7 +16,8 @@
     onSnapshot,
     updateDoc,
     deleteDoc,
-    addDoc, Timestamp
+    addDoc, Timestamp,
+    increment
   } from "firebase/firestore";
   import { fstore } from "../../../firebase";
   // import { push } from "firebase/database";
@@ -94,6 +95,9 @@ const handleSubmit = async() => {
                 },
             });
             console.log('Comment written with ID: ', docRef.id);
+            await updateDoc(doc(fstore, "posts", params), {
+              comment: increment(1)
+            });
         } catch(err){
             console.log(err);
         }
@@ -113,6 +117,9 @@ const handleSubmit = async() => {
 const deleteMyComment = async(id) => {
     try{
         await deleteDoc(doc(fstore, "posts",`${params}`, "comments", `${id}`));
+        await updateDoc(doc(fstore, "posts", params), {
+              comment: increment(-1)
+            });
     } catch(err) {
       console.log(err);
     }

@@ -102,6 +102,7 @@
       <PostList
       on:click={()=> readHandle(post.id, post.read)}
         read={post.read}
+        commentCount = {post.comment}
         author={post.author}
         title={post.title}
         express={post.express}
