@@ -3,15 +3,16 @@ import { initializeApp } from "firebase/app";
 import { getDatabase} from "firebase/database"
 import { getFirestore } from "firebase/firestore"
 import {getAuth} from 'firebase/auth'
+import {PUBLIC_FIREAPI, PUBLIC_FIREAUTH, PUBLIC_FIREDB, PUBLIC_FIREID, PUBLIC_FIREBUCKET, PUBLIC_FIRESENDER, PUBLIC_FIREAPP, PUBLIC_FIREMEASURE} from '$env/static/public'
 const firebaseConfig = {
-  apiKey: "AIzaSyD7OUVEGngVmFj-bS8T6GIxtRBnGPotPJc",
-  authDomain: "blog-424dc.firebaseapp.com",
-  databaseURL: "https://blog-424dc-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "blog-424dc",
-  storageBucket: "blog-424dc.appspot.com",
-  messagingSenderId: "288552439869",
-  appId: "1:288552439869:web:641123524ffaaf222d1a54",
-  measurementId: "G-6DSSTNW7D8"
+  apiKey: PUBLIC_FIREAPI,
+  authDomain: PUBLIC_FIREAUTH,
+  databaseURL: PUBLIC_FIREDB,
+  projectId: PUBLIC_FIREID,
+  storageBucket: PUBLIC_FIREBUCKET,
+  messagingSenderId: PUBLIC_FIRESENDER,
+  appId: PUBLIC_FIREAPP,
+  measurementId: PUBLIC_FIREMEASURE
 };
 
 // Initialize Firebase

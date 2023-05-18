@@ -1,7 +1,7 @@
 <script>
   import { onDestroy, onMount } from "svelte";
   import PostList from "../lib/Components/PostList.svelte";
-  // import { postStore } from "../stores/postStore";
+  import { common } from "../stores/postStore";
   import PostSkeleton from "../lib/Components/PostSkeleton.svelte";
   import Landing from "../lib/Components/Landing.svelte";
   import venus from '../images/venus.svg';
@@ -18,29 +18,8 @@
     increment
   } from "firebase/firestore";
   import { fstore } from "../firebase";
-  // import { read } from "@popperjs/core";
-  // import {userStore} from "../stores/userStore"
 
   let posts = [];
-  // let unsubscribe = postStore.subscribe(async (data) => {
-  //   posts = data;
-  // });
-
-  const getReadTime = (s) => {
-    s = s.replace(/(^\s*)|(\s*$)/gi, "");
-    s = s.replace(/[ ]{2,}/gi, " ");
-    s = s.replace(/\n /, "\n");
-    let words = s.split(" ").filter(function (str) {
-      return str != "";
-    }).length;
-    return Math.ceil(words / 200);
-  };
-
-  const getDate = (date) => {
-    date = date.toDate().toString();
-    date = date.split(" ");
-    return `${date[2]} ${date[1]} ${date[3]}`;
-  };
 
   onMount(()=>{
     const q = query(
@@ -48,21 +27,20 @@
       orderBy("createdAt", "desc"),
       limit(10)
     );
-    // if(posts.length==0) {
+
     onSnapshot(q, (snapshot) => {
       posts = [];
       snapshot.forEach((doc) => {
         posts.push({
           ...doc.data(),
-          mins: getReadTime(doc.data().content),
-          createdAt: getDate(doc.data().createdAt),
+          mins: $common.getReadTime(doc.data().content),
+          createdAt: $common.getDate(doc.data().createdAt),
           id: doc.id
         });
       });
 
       posts = posts;
     });
-  // }
     
   });
 

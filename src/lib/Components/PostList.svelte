@@ -22,7 +22,7 @@
       alt="Rounded avatar"
     />
     
-    <div class="text-sm font-bold max-sm:text-[10px]">{author}</div> <Icon icon="bi:dot" /> <div class="font-lato flex read gap-1 max-sm:text-[11px]"><Icon icon="ic:baseline-remove-red-eye" />{read} <Icon icon="bi:dot" /> <Icon icon="iconamoon:comment" /> {commentCount} </div>
+    <div class="text-sm font-bold max-sm:text-[10px]">{author}</div> <Icon icon="bi:dot" /> <div class="font-lato flex read gap-1 max-sm:text-[11px]"><Icon icon="ic:baseline-remove-red-eye" />{read} <Icon icon="bi:dot" /> <Icon icon="cil:comment-bubble" /> {commentCount} </div>
   </div>
   <div
     class="flex flex-wrap gap-2 mt-2 items-center text-gray-500 font-poppins text-sm max-sm:text-[10px]"

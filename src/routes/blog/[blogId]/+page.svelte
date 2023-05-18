@@ -3,7 +3,7 @@
   import Icon from "@iconify/svelte";
   import { page } from "$app/stores";
   import {goto} from '$app/navigation';
-  // import { postStore } from "../../../stores/postStore";
+  import { common } from "../../../stores/postStore";
   import ship from '../../../images/space-shuttle.png';
   // import ship2 from '../../../images/astronaut.png';
   import SideList from "../../../lib/Components/SideList.svelte";
@@ -31,13 +31,6 @@
     "leetcode": "simple-icons:leetcode",
     "codeforces": "simple-icons:codeforces"
   }
-
-  const getDate = (date) => {
-    date = date.toDate().toString();
-    date = date.split(" ");
-    return `${date[2]} ${date[1]} ${date[3]}`;
-  };
-
   let post;
   let content;
   let comments = [];
@@ -161,13 +154,13 @@ const deleteMyComment = async(id) => {
       >
     {/each}
   </div>
-  <div class="m-0 p-0 flex items-center justify-between font-hind">
+  <div class="m-0 p-0 flex gap-2 font-lato">
     <div class="flex gap-1 items-center justify-between">
-      <Icon icon="line-md:edit" /> <span class="strong">{post.author}</span>
+      <img class="w-[40px] h-[40px] max-sm:w-[30px] max-sm:h-[30px] rounded-full" src="https://firebasestorage.googleapis.com/v0/b/blog-424dc.appspot.com/o/photo_2023-05-01_17-36-37.jpg?alt=media&amp;token=1b4d753d-3beb-4957-83cf-2a9f7650bd6e" alt="Rounded avatar">
     </div>
-    <div class="flex gap-1 items-center justify-between">
-      <Icon icon="line-md:calendar" />
-      <span class="text-orange">{getDate(post.createdAt)}</span>
+    <div class="">
+      <div><span class="font-bold max-sm:text-[14px]">{post.author}</span></div>
+      <div class="flex text-[14px] items-center text-gray-700 dark:text-gray-300 max-sm:text-[12px]"><span class="text-orange">{$common.getReadTime(content)} min read</span> <Icon icon="bi:dot" /> <span class="text-orange">{$common.getDate(post.createdAt)}</span> <Icon icon="bi:dot" /> <div class="flex items-center gap-1"> <Icon icon="cil:comment-bubble" /> {post.comment}</div></div>
     </div>
   </div>
   <hr />
@@ -221,7 +214,7 @@ const deleteMyComment = async(id) => {
 <div class="text-2xl max-sm:text-17px font-bold font-Lato"> Comments({comments.length})</div>
 <SendInput  on:submit={handleSubmit} bind:commentText/>
 {#each comments as c}
-  <CommentCard on:deleteComment={()=>deleteMyComment(c.id)} mycomment={c.author.id == $userStore.uid} photoUrl={c.author.photoURL} author={c.author.name} time={getDate(c.createdAt)} comment={c.comment} like={c.like}/>
+  <CommentCard on:deleteComment={()=>deleteMyComment(c.id)} mycomment={c.author.id == $userStore.uid} photoUrl={c.author.photoURL} author={c.author.name} time={$common.getDate(c.createdAt)} comment={c.comment} like={c.like}/>
 {/each}
 {:else}
 <div class="text-2xl max-sm:text-[20px] font-bold font-Lato"> Comments(0)</div>
