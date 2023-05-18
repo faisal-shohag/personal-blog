@@ -12,7 +12,7 @@
         This is a personal blog and portfolio website. I basically created it, in order to stay focus on study about <code class="mx-1">DS</code> , <code class="mx-1">Algo.</code> and <code class="mx-1">AI</code>.
         <div class="flex  flex-wrap items-center">
         This project is made with <Icon class="mx-1" icon="logos:svelte-kit" /> and <Icon icon="vscode-icons:file-type-firebase" />.</div> Svelte is my favourite framework (actually a compiler) because of it's tiny bundle size and blazing fast behaviour!
-        <div class="flex flex-wrap items-center gap-1">You can find the entire project on<Icon icon="octicon:logo-github-16" />.</div>
+        <div class="flex flex-wrap text-sm items-center gap-1">You can find the entire project on<a target="__blank" href="https://github.com/faisal-shohag/personal-blog"><Icon icon="octicon:logo-github-16" /></a></div>
     </div>
 </div>
 

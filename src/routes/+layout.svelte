@@ -240,7 +240,20 @@
     class="container lg:max-w-[1000px] body p-10 pt-4 space-y-4 max-sm:p-3 rounded-b-sm h-auto shadow-lg"
   >
     <slot />
+  <hr/>
+    <div class="w-full  mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+      <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://hellofaisal.netlify.app/" class="hover:underline">Faisal™</a>. All Rights Reserved.
+    </span>
+    <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+        <li>
+            <a target="__blank" href="https://github.com/faisal-shohag/personal-blog" class="mr-4 hover:underline md:mr-6 "><Icon icon="octicon:logo-github-16" /></a>
+        </li>
+    </ul>
+    </div>
   </div>
+
+   
+
 </AppShell>
 
 <style>
