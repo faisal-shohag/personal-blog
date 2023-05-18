@@ -123,7 +123,7 @@ const deleteMyComment = async(id) => {
 <Toast/>
 
 
-{#if post}
+{#if post && post.problems}
 
 {#if post.problems.length > 0}
 <SideListSkeleton style="max-xl:hidden fixed right-10 min-w-[350px]">
