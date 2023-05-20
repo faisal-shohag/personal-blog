@@ -27,6 +27,7 @@
     "firebase": "^9.20.0",
     "flowbite": "^1.6.5",
     "flowbite-svelte": "^0.34.9",
+    "highlight.js": "^11.8.0",
     "quill": "latest"
   }
 }

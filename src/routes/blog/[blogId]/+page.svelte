@@ -36,27 +36,36 @@
   let comments = [];
 
   onMount(async () => {
-    document.querySelectorAll("pre").forEach((el) => {
-      hljs.highlightElement(el);
-      el.classList.add("p-3");
-      el.classList.add("mt-3");
-      el.classList.add("mb-3");
-      el.classList.add("rounded-lg");
-    });
+    // document.querySelectorAll("pre code").forEach((el) => {
+    //   hljs.highlightElement(el);
+    //   el.classList.add("p-3");
+    //   el.classList.add("mt-3");
+    //   el.classList.add("mb-3");
+    //   el.classList.add("rounded-lg");
+    // });
+    
     setTimeout(()=>{
       MathJax.typeset(); 
+      document.querySelectorAll("pre code").forEach((el) => {
+        hljs.highlightElement(el);  
+      });
+
+     
+
       document.querySelectorAll("pre").forEach((el) => {
         hljs.highlightElement(el);  
       });
-    },3000);
+    },1000);
 
      //getpost
     const docRef= doc(fstore, "posts", params)
     onSnapshot(docRef, (doc) => {
-      // console.log(doc.data());
       post = doc.data();
+      // content = post.content;
       content = post.content.replaceAll("<br>", "\n");
-      // console.log(post);
+      document.querySelectorAll("code").forEach((el) => {
+        hljs.lineNumbersBlock(el);
+    });
     });
 
     //getcomments
@@ -227,6 +236,8 @@ const deleteMyComment = async(id) => {
   .blog-content {
     font-family: "Lato", Kalpurush;
   }
+
+
 
 
 </style>

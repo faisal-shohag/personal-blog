@@ -16,6 +16,10 @@
   import { fauth, db } from "../firebase";
   import {onMount} from 'svelte';
   import {userStore} from "../stores/userStore"
+  import hljs from 'highlight.js';
+  import 'highlight.js/styles/github-dark.css';
+  import { storeHighlightJs } from '@skeletonlabs/skeleton';
+  storeHighlightJs.set(hljs);
 
   let me;
   onMount(async () => {
@@ -55,16 +59,16 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
 />
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
-  <link
+  <!-- <link
     href="https://cdn.quilljs.com/1.3.6/quill.bubble.css"
     rel="stylesheet"
-  />
+  /> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/kimbie.dark.min.css">
 
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"
   ></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
   <script>
      MathJax = {
             tex: {
