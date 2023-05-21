@@ -36,19 +36,19 @@
   let comments = [];
 
   onMount(async () => {
-    document.querySelectorAll("pre code").forEach((el) => {
-      hljs.highlightElement(el);
-      // el.classList.add("p-3");
-      // el.classList.add("mt-3");
-      // el.classList.add("mb-3");
-      // el.classList.add("rounded-lg");
-    });
+    // document.querySelectorAll("pre code").forEach((el) => {
+    //   hljs.highlightElement(el);
+    //   // el.classList.add("p-3");
+    //   // el.classList.add("mt-3");
+    //   // el.classList.add("mb-3");
+    //   // el.classList.add("rounded-lg");
+    // });
     
     setTimeout(()=>{
       MathJax.typeset(); 
-      document.querySelectorAll("pre code").forEach((el) => {
-        hljs.highlightElement(el);  
-      });
+      // document.querySelectorAll("pre code").forEach((el) => {
+      //   hljs.highlightElement(el);  
+      // });
 
       document.querySelectorAll("pre").forEach((el) => {
         hljs.highlightElement(el);  
