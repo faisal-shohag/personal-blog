@@ -63,7 +63,7 @@
     href="https://cdn.quilljs.com/1.3.6/quill.bubble.css"
     rel="stylesheet"
   /> -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/kimbie.dark.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" integrity="sha512-rO+olRTkcf304DQBxSWxln8JXCzTHlKnIdnMUwYvQa9/Jd4cQaNkItIUj6Z4nvW1dqK0SKXLbn9h4KwZTNtAyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"
@@ -193,7 +193,7 @@
         <img class="h-10" src={home} alt=""/>
         </AppRailTile
       >
-      <AppRailTile
+      <!-- <AppRailTile
         on:click={openSide}
         label="Blogs"
         tag="a"
@@ -201,7 +201,7 @@
         value={1}
         class="{'/blogs' === $page.url.pathname ? '!bg-primary-500' : ''}"
         ><Icon class="text-3xl" icon="line-md:edit-twotone-full" /></AppRailTile
-      >
+      > -->
       <AppRailTile
         on:click={openSide}
         label="Resume"

@@ -2,9 +2,9 @@
     import Icon from '@iconify/svelte';
     import sleep from '../../images/alien_cute2.png'
 
-import { CodeBlock } from '@skeletonlabs/skeleton';
-  import Landing from '../../lib/Components/Landing.svelte';
-    let data = `<h1>Hello</h1>`
+// import { CodeBlock } from '@skeletonlabs/skeleton';
+//   import Landing from '../../lib/Components/Landing.svelte';
+    // let data = `<h1>Hello</h1>`
 </script>
 <div class="p-4 space-y-2 font-hind">
     <div class="head flex item-center gap-2 text-3xl max-sm:text-2xl uppercase font-bold"> 
@@ -20,8 +20,8 @@ import { CodeBlock } from '@skeletonlabs/skeleton';
     </div>
 </div>
 
-<CodeBlock lineNumbers={true} language="html" code={`<div>This is meta</div>`}></CodeBlock>
-<CodeBlock language="ts" code={`const skeleton: string = 'awesome';`}></CodeBlock>
+<!-- <CodeBlock lineNumbers={true} language="html" code={`<div>This is meta</div>`}></CodeBlock>
+<CodeBlock language="ts" code={`const skeleton: string = 'awesome';`}></CodeBlock> -->
 <style>
 .head{
     align-items: center;

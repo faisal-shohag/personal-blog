@@ -4,56 +4,30 @@
   import { ref, update } from 'firebase/database';
   import {fstore, db, app} from '../../firebase';
   import Icon from '@iconify/svelte';
-    let editor;
-    export let toolbarOptions = [
-		[{ header: 1 }, { header: 2 }, { header: 3 }, { header: 4 }, { header: 5 }, { header: 6 },"blockquote", "link", "image", "code-block", "video"],
-		["bold", "italic", "underline", "strike"],
-		[{ list: "ordered" }, { list: "ordered" }],
-		[{ align: [] }],
-		["clean"]
-	];
-
-    let quill
-    onMount(async()=>{
-        const { default: Quill } = await import("quill");
-        quill = new Quill(editor, {
-        modules: {
-            toolbar: toolbarOptions
-        },
-        theme: "snow",
-        placeholder: "Write your story..."
-        });
-
-        document.querySelectorAll('pre').forEach(el=>{
-        hljs.highlightElement(el);
-        el.classList.add('p-3');
-        el.classList.add('mt-3')
-        el.classList.add('rounded-lg')
-       });
-       document.querySelectorAll('pre.hljs').forEach(block=>{
-        hljs.lineNumbersBlock(block);
-       });
+  
+  let value = "";
+  const getAction = (action) => {
+    value = action;
+  }  
+  onMount(async()=>{
+        let textarea = document.getElementById('textarea');
+        let el = document.getElementsByClassName('optionClick');
+        let takeAction = function (){
+            let startPos = textarea.selectionStart;
+            let endPos = textarea.selectionEnd;
+            textarea.value = `${textarea.value.substring(0, startPos)}${value}${textarea.value.substring(endPos, textarea.value.length)}`
+        }
+        Array.from(el).forEach(function(el) {
+          el.addEventListener('click', takeAction);
+        })
     });
+
 
     let title, tags, qt, qta, content, mtags = false, express;
     let problems = [];
     let pname, plink, powner;
-    const show = ()=>{
-      let formData = {
-          title: title,
-          tags: Array.isArray(tags) ? tags : tags.split(','),
-          qt: qt,
-          qta: qta,
-          content: (quill.root.innerHTML).replaceAll('\n', "<br>"),
-          express: express
-      }
-      content = ((formData.content).replaceAll('&lt;', '<')).replaceAll('&gt;', '>');
-      tags = formData.tags
-      mtags = true;
-      console.log(formData)
-    }
 
-    const getHtml = async () =>{
+    const submitBlog = async () =>{
        let formData = {
           title: title,
           tags: tags,
@@ -64,6 +38,16 @@
       }
 
         try {
+          console.log({
+                ...formData,
+                createdAt: Timestamp.fromDate(new Date()),
+                author: 'Faisal Shohag',
+                like: 0,
+                comments: 0,
+                reports: [],
+                read: 0,
+                problems: [...problems]
+          })
             const docRef = await addDoc(collection(fstore, "posts"), {
                 ...formData,
                 content: content,
@@ -91,6 +75,17 @@
       problems = problems
     }
 
+    const processBlog = () => {
+      setTimeout(()=>{
+        document.querySelectorAll('pre code').forEach(el=>{
+        hljs.highlightElement(el);
+       });
+       MathJax.typeset(); 
+      }, 300);
+    }
+
+    
+
 </script>
 
 
@@ -112,17 +107,36 @@
 <!-- problem adding -->
 <div>
   <input class="input" type="text" placeholder="Problem Name" bind:value={pname}/>
-  <input class="input" type="text" placeholder="Problem Owner" bind:value={powner}/>
-  <input class="input" type="text" placeholder="Problem link" bind:value={plink}/>
+  <input class="input mt-1" type="text" placeholder="Problem Owner" bind:value={powner}/>
+  <input class="input mt-1" type="text" placeholder="Problem link" bind:value={plink}/>
   <button on:click={addProblem} class="mt-5 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add</button>
 </div>
 
 <div class="text-2xl font-hind font-bold">Editor</div>
-<div class="editor-wrapper">
-    <div bind:this={editor} />
-  </div>
-<button on:click={show} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Show</button>
- 
+<div class="flex items-center gap-2 text-lg justify-center bg-gray-200 p-3 rounded-md">
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div on:click={() => getAction(`<h1></h1>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="material-symbols:format-h1-rounded" /></div>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div on:click={() => getAction(`<h2></h2>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="material-symbols:format-h2-rounded" /></div>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div on:click={() => getAction(`<h5></h5>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="material-symbols:format-h5-rounded" /></div>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div on:click={() => getAction(`<b></b>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="ooui:bold-b" /></div>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div on:click={() => getAction(`<i></i>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="ooui:italic-i" /></div>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div on:click={() => getAction(`<u></u>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="ooui:underline-u" /></div>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div on:click={() => getAction(`<p></p>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="tabler:letter-p" /></div>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div on:click={() => getAction(`<pre><code class="language-"></code></pre>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="mingcute:code-fill" /></div>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div on:click={() => getAction(`$$`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="fluent:math-formula-16-filled" /></div>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div on:click={() => getAction(`<code></code>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="fluent:highlight-16-filled" /></div>
+</div>
+<textarea id="textarea" class="w-full h-[300px] border-s-1 rounded-md border-gray-300" on:keydown={processBlog} bind:value={content}></textarea>
+
 <div class="text-2xl font-hind font-bold">Preview</div>
 <div class="flex gap-3 items-center md:float-right max-sm:hidden">
   <span class="badge variant-soft-primary cursor-pointer hover:variant-filled-primary">Stack</span>
@@ -141,14 +155,9 @@
 <div class="m-0 p-0 flex items-center justify-between font-hind"> <div class="flex gap-1 items-center justify-between"><Icon icon="line-md:edit" /> <span class="strong">Faisal Shohag</span></div> <div class="flex gap-1 items-center justify-between"><Icon icon="line-md:calendar" /> <span class="text-orange">dd/mm/yy</span></div></div>
 <hr />
 
-<div class="blog-content">
-  {#if  content}
+<div class="blog">
   {@html content}
-  {:else}
-  Content Goes Here...
-  {/if}
-  
 </div>
 
-<button on:click={getHtml} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+<button on:click={submitBlog} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Submit</button>
 
