@@ -9,7 +9,7 @@
   const getAction = (action) => {
     value = action;
   }  
-  onMount(async()=>{
+  onMount(async()=>{		
         let textarea = document.getElementById('textarea');
         let el = document.getElementsByClassName('optionClick');
         let takeAction = function (){
@@ -75,7 +75,7 @@
       problems = problems
     }
 
-    const processBlog = () => {
+    const processBlog =  () => {
       setTimeout(()=>{
         document.querySelectorAll('pre code').forEach(el=>{
         hljs.highlightElement(el);
@@ -134,6 +134,8 @@
   <div on:click={() => getAction(`$$`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="fluent:math-formula-16-filled" /></div>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div on:click={() => getAction(`<code></code>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="fluent:highlight-16-filled" /></div>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div on:click={() => getAction(`<br/>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="dashicons:editor-break" /></div>
 </div>
 <textarea id="textarea" class="w-full h-[300px] border-s-1 rounded-md border-gray-300" on:keydown={processBlog} bind:value={content}></textarea>
 

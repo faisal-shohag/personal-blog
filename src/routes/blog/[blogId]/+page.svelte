@@ -25,6 +25,7 @@
   import SendInput from "../../../lib/Components/SendInput.svelte";
   import { userStore } from "../../../stores/userStore";
   import { Toast, toastStore } from '@skeletonlabs/skeleton';
+  import { comment } from "svelte/internal";
   const params = $page.params.blogId;
 
   let icons = {
@@ -151,7 +152,7 @@ const deleteMyComment = async(id) => {
     </div>
     <div class="">
       <div><span class="font-bold max-sm:text-[14px]">{post.author}</span></div>
-      <div class="flex text-[14px] items-center text-gray-700 dark:text-gray-300 max-sm:text-[12px]"><span class="text-orange">{$common.getReadTime(content)} min read</span> <Icon icon="bi:dot" /> <span class="text-orange">{$common.getDate(post.createdAt)}</span> <Icon icon="bi:dot" /> <div class="flex items-center gap-1"> <Icon icon="cil:comment-bubble" /> {post.comment}</div></div>
+      <div class="flex text-[14px] items-center text-gray-700 dark:text-gray-300 max-sm:text-[12px]"><span class="text-orange">{$common.getReadTime(content)} min read</span> <Icon icon="bi:dot" /> <span class="text-orange">{$common.getDate(post.createdAt)}</span> <Icon icon="bi:dot" /> <div class="flex items-center gap-1"> <Icon icon="cil:comment-bubble" /> {post.comment ? post.comment : "0"}</div></div>
     </div>
   </div>
   <hr />

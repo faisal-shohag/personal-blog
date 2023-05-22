@@ -34,6 +34,7 @@
         }
        
     });
+  
   });
 
   let sideOpen = false;
@@ -69,36 +70,8 @@
     src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"
   ></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-  <script>
-     MathJax = {
-            tex: {
-              inlineMath: [['$', '$'], ['\\(', '\\)']],
-              displayMath: [ ["$$","$$"]],
-                      processEscapes: false,
-                      packages: {
-                          '[+]': ['physics', 'color', 'bbox', 'cancel', 'mhchem', 'noundefined', ]
-                      }
-            },
-            svg: {
-              fontCache: 'global',
-              scale: 1
-            },
-            chtml: {
-              scale: 0.8
-            },
-            loader: {
-                      load: ['[tex]/physics', '[tex]/color', '[tex]/bbox', '[tex]/cancel', '[tex]/mhchem', '[tex]/noundefined']
-                    },
-                    tags: 'ams'
-        };
-       
-  </script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script
-      id="MathJax-script"
-      async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-  
+
 </svelte:head>
 
 
