@@ -37,18 +37,19 @@
   let comments = [];
 
   onMount(async () => {
-    setTimeout(()=>{
-      MathJax.typeset(); 
-      document.querySelectorAll("pre").forEach((el) => {
-        hljs.highlightElement(el);  
-      });
-    }, 3000);
+    
 
      //getpost
     const docRef= doc(fstore, "posts", params)
     onSnapshot(docRef, (doc) => {
       post = doc.data();
       content = post.content.replaceAll("<br>", "\n");
+      setTimeout(()=>{
+      MathJax.typeset(); 
+      document.querySelectorAll("pre").forEach((el) => {
+        hljs.highlightElement(el);  
+      });
+    }, 2000);
     });
 
     //getcomments
@@ -137,7 +138,11 @@ const deleteMyComment = async(id) => {
       >
     {/each}
   </div>
-  <div class="text-2xl font-hind font-bold">{post.title}</div>
+  <div class="text-2xl flex items-center gap-3 font-hind font-bold">{post.title}
+  {#if $userStore.uid == 'iO6NWstUISZXtTvTZdD9iiqWl2r2'}
+  <a href="/edit/{params}"><Icon icon="basil:edit-solid" /></a>
+  {/if}
+  </div>
   <div class="flex gap-3 items-center md:hidden">
     {#each post.tags as tag}
       <span
@@ -183,7 +188,7 @@ const deleteMyComment = async(id) => {
         </div>
       </figcaption>
     </figure>
-    <div class="">
+    <div>
     {@html content}
   </div>
   </div>

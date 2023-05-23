@@ -151,8 +151,8 @@
 
 <AppShell
   slotSidebarLeft="{open
-    ? 'max-sm:w-64 max-sm:left-0'
-    : 'max-sm:w-0 max-sm:left-0'} transition-all duration-500 h-screen fixed transition z-[99]"
+    ? 'max-md:w-64 max-md:left-0'
+    : 'max-md:w-0 max-md:left-0'} transition-all duration-500 h-screen fixed transition z-[99]"
 >
   <svelte:fragment slot="sidebarLeft">
     <AppRail>

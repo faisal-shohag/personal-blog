@@ -30,7 +30,7 @@
     const submitBlog = async () =>{
        let formData = {
           title: title,
-          tags: tags,
+          tags: tags.split(','),
           qt: qt,
           qta: qta,
           content: content,
@@ -43,7 +43,7 @@
                 createdAt: Timestamp.fromDate(new Date()),
                 author: 'Faisal Shohag',
                 like: 0,
-                comments: 0,
+                comment: 0,
                 reports: [],
                 read: 0,
                 problems: [...problems]
@@ -54,7 +54,7 @@
                 createdAt: Timestamp.fromDate(new Date()),
                 author: 'Faisal Shohag',
                 like: 0,
-                comments: 0,
+                comment: 0,
                 reports: [],
                 read: 0,
                 problems: [...problems]
@@ -136,6 +136,49 @@
   <div on:click={() => getAction(`<code></code>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="fluent:highlight-16-filled" /></div>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div on:click={() => getAction(`<br/>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="dashicons:editor-break" /></div>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div on:click={() => getAction(`
+  <ul class="list-disc list-inside">
+    <li>List Title
+      <ol class="list-decimal list-inside">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+      </ol>
+  </li>
+  </ul>
+  `)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="la:list-ol" /></div>
+
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <div on:click={() => getAction(`
+      <ol class="list-decimal list-inside">
+        <li>List Title
+          <ul class="list-disc list-inside">
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+          </ul>
+      </li>
+      </ol>
+      `)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="typcn:th-list" /></div>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div on:click={() => getAction(`
+<ul class="max-w-md space-y-1 list-inside">
+    <li class="flex items-center">
+        <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        Item 1
+    </li>
+    <li class="flex items-center">
+        <svg class="w-4 h-4 mr-1.5 text-green-500 dark:text-green-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        Item 2
+    </li>
+    <li class="flex items-center">
+        <svg class="w-4 h-4 mr-1.5 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+        Item 3
+    </li>
+</ul>
+
+  `)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="iconoir:task-list" /></div>
 </div>
 <textarea id="textarea" class="w-full h-[300px] border-s-1 rounded-md border-gray-300" on:keydown={processBlog} bind:value={content}></textarea>
 
