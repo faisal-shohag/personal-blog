@@ -122,7 +122,7 @@
 </div>
 
 <div class="text-2xl font-hind font-bold">Editor</div>
-<div class="flex items-center gap-2 text-lg justify-center bg-gray-200 p-3 rounded-md">
+<div class="flex items-center gap-2 text-lg justify-center bg-gray-200 p-3 rounded-md flex-wrap">
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div on:click={() => getAction(`<h1></h1>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="material-symbols:format-h1-rounded" /></div>
   <!-- svelte-ignore a11y-click-events-have-key-events -->

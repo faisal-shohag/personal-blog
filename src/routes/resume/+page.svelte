@@ -103,11 +103,11 @@
         <div class="mt-5">
             <div class="text-2xl font-light uppercase mb-2">Projects</div>
             <div class="text-bold text-xl flex items-center gap-2">Britto Edu. <a target="__blank" class="flex items-center gap-1 text-sm" href="https://britto.netlify.app"><Icon class="text-lg" icon="line-md:external-link-rounded" /> View</a></div>
-            <div class="text-md font-light">A online MCQ exam websites for university admission test students.</div>
+            <div class="text-md font-light">An online MCQ exam website for university admission test students.</div>
             <div class="text-md font-light"><span class="font-bold">Tech. used: </span> HTML, CSS, JS, Firebase</div>
             
             <div class="mt-2 text-bold text-xl flex items-center gap-2">Projapoti <a target="__blank" class="flex items-center gap-1 text-sm" href="https://github.com/faisal-shohag/projapoti"><Icon class="text-lg" icon="line-md:external-link-rounded" /> View</a></div>
-            <div class="text-md font-light">Android based bengali book reading app.</div>
+            <div class="text-md font-light">Android based bengali ebook reading app.</div>
             <div class="text-md font-light"><span class="font-bold">Tech. used: </span> Flutter, Firebase</div>
 
             <div class="mt-2 text-bold text-xl flex items-center gap-2">helloFaisal <a target="__blank" class="flex items-center gap-1 text-sm" href="https://hellofaisal.netlify.app"><Icon class="text-lg" icon="line-md:external-link-rounded" /> View</a></div>
