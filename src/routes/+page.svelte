@@ -40,6 +40,9 @@
       });
 
       posts = posts;
+      setTimeout(()=>{
+        MathJax.typeset();
+      }, 1000);
     });
     
   });
