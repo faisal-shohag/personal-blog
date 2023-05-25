@@ -59,11 +59,6 @@
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
 />
-  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
-  <!-- <link
-    href="https://cdn.quilljs.com/1.3.6/quill.bubble.css"
-    rel="stylesheet"
-  /> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" integrity="sha512-rO+olRTkcf304DQBxSWxln8JXCzTHlKnIdnMUwYvQa9/Jd4cQaNkItIUj6Z4nvW1dqK0SKXLbn9h4KwZTNtAyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <script
@@ -71,7 +66,6 @@
   ></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <link rel="stylesheet" href="../fonts/icons/icofont/icofont.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </svelte:head>
 
@@ -151,9 +145,9 @@
 </Navbar>
 
 <AppShell
-  slotSidebarLeft="{open
-    ? 'max-md:w-64 max-md:left-0'
-    : 'max-md:w-0 max-md:left-0'} transition-all duration-500 h-screen fixed transition z-[99]"
+  slotSidebarLeft="rounded-3xl border-[1px] border-gray-300  dark:border-gray-600 {open
+    ? 'max-md:w-50 max-md:left-0'
+    : 'max-sm:w-0 max-md:left-0'} transition-all duration-500 fixed transition z-[99] h-auto top-[200px]"
 >
   <svelte:fragment slot="sidebarLeft">
     <AppRail>
