@@ -142,6 +142,8 @@
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div on:click={() => getAction(`$$`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="fluent:math-formula-16-filled" /></div>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div on:click={() => getAction(`$\\mathrm{}$`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="mingcute:formula-fill" /></div>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div on:click={() => getAction(`<code></code>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="fluent:highlight-16-filled" /></div>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div on:click={() => getAction(`<br/>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="dashicons:editor-break" /></div>
