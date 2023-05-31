@@ -1,10 +1,14 @@
 <script>
     import Icon from '@iconify/svelte';
     import sleep from '../../images/alien_cute2.png'
+  import { onMount } from 'svelte';
 
 // import { CodeBlock } from '@skeletonlabs/skeleton';
 //   import Landing from '../../lib/Components/Landing.svelte';
     // let data = `<h1>Hello</h1>`
+    onMount(()=>{
+        document.title = "About";
+    })
 </script>
 <div class="p-4 space-y-2 font-hind">
     <div class="head flex item-center gap-2 text-3xl max-sm:text-2xl uppercase font-bold"> 

@@ -1,5 +1,9 @@
 <script>
     import Icon from '@iconify/svelte';
+    import {onMount} from 'svelte'
+    onMount(()=>{
+        document.title = "Resume";
+    })
 </script>
 <div  class="bg-white max-sm:zoom-50 dark:bg-gray-900 w-full h-auto p-10 font-lato">
 <div class="text-center mb-2">

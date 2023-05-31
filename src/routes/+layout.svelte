@@ -23,23 +23,21 @@
     document.title = "Hello Faisal. | Home";
    const  saveSettings =() => {
       return new Promise((resolve, reject) => {
-        setTimeout(()=>{
+        let x = setInterval(()=>{
+          if($userStore.loggedIn===true){
+          resolve();
+          clearInterval(x);
+        }else if($userStore.loggedIn===false){
           reject();
           clearInterval(x);
-        }, 6000);
-
-        let x = setInterval(()=>{
-           if(me){ 
-            resolve();
-            clearInterval(x);
-          };
-        }, 1000);
+        }
+        }, 100)
       });
     }
     toast.promise(
         saveSettings(),
         {
-          loading: 'Checking user...',
+          loading: 'Checking...',
           success: 'Signed In!',
           error: 'You are not signed In!',
         },
