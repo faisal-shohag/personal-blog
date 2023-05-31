@@ -23,17 +23,17 @@
     document.title = "Hello Faisal. | Home";
    const  saveSettings =() => {
       return new Promise((resolve, reject) => {
+        setTimeout(()=>{
+          reject();
+          clearInterval(x);
+        }, 6000);
+
         let x = setInterval(()=>{
            if(me){ 
             resolve();
             clearInterval(x);
           };
         }, 1000);
-
-        setTimeout(()=>{
-          reject();
-          clearInterval(x);
-        }, 60000);
       });
     }
     toast.promise(
