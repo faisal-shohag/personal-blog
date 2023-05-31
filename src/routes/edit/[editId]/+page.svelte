@@ -5,6 +5,7 @@
   import {fstore, db, app} from '../../../firebase';
   import Icon from '@iconify/svelte';
   import {page} from '$app/stores';
+  import Draggable from '../../../lib/Components/Draggable.svelte';
   const params = $page.params.editId;
   let value = "";
   const getAction = (action) => {
@@ -120,8 +121,8 @@
   <input class="input mt-1" type="text" placeholder="Problem link" bind:value={plink}/>
   <button on:click={addProblem} class="mt-5 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add</button>
 </div>
-
-<div class="text-2xl font-hind font-bold">Editor</div>
+<Draggable>
+<div class="text-2xl font-hind font-bold flex justify-center bg-white dark:text-white dark:bg-black">Editor</div>
 <div class="flex items-center gap-2 text-lg justify-center bg-gray-200 p-3 rounded-md flex-wrap">
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div on:click={() => getAction(`<h1></h1>`)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="material-symbols:format-h1-rounded" /></div>
@@ -191,8 +192,8 @@
     
       `)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="iconoir:task-list" /></div>
 </div>
-<textarea id="textarea" class="w-full h-[300px] border-s-1 rounded-md border-gray-300" on:keydown={processBlog} bind:value={content}></textarea>
-
+<textarea id="textarea" class="w-full h-[300px] border-s-1 rounded-md border-gray-300 text-black dark:text-white bg-white dark:bg-black" on:keydown={processBlog} bind:value={content}></textarea>
+</Draggable>
 <div class="text-2xl font-hind font-bold">Preview</div>
 <div class="flex gap-3 items-center md:float-right max-sm:hidden">
   <span class="badge variant-soft-primary cursor-pointer hover:variant-filled-primary">Stack</span>

@@ -16,14 +16,39 @@
   import { fauth, db } from "../firebase";
   import {onMount} from 'svelte';
   import {userStore} from "../stores/userStore"
-  import hljs from 'highlight.js';
-  import 'highlight.js/styles/github-dark.css';
-  import { storeHighlightJs } from '@skeletonlabs/skeleton';
-  storeHighlightJs.set(hljs);
+  import toast, { Toaster } from 'svelte-french-toast';
 
   let me;
   onMount(async () => {
+   const  saveSettings =() => {
+      return new Promise((resolve, reject) => {
+        let x = setInterval(()=>{
+           if(me){ 
+            resolve();
+            clearInterval(x);
+          };
+        }, 1000);
+
+        setTimeout(()=>{
+          reject();
+          clearInterval(x);
+        }, 60000);
+      });
+    }
+    toast.promise(
+        saveSettings(),
+        {
+          loading: 'Checking user...',
+          success: 'Signed In!',
+          error: 'You are not signed In!',
+        },
+        {
+          position: "bottom-center"
+        }
+    );
     onAuthStateChanged(fauth, async(user) => {
+     
+     
         if(user) {
             userStore.set({...user, loggedIn: true});
             me = user;
@@ -53,7 +78,6 @@
       }
   }
 </script>
-
 <svelte:head>
   <link
   rel="stylesheet"
@@ -68,7 +92,7 @@
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </svelte:head>
-
+<Toaster/>
 
 
 <Navbar
