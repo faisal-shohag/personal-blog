@@ -37,12 +37,13 @@
   let comments = [];
 
   onMount(async () => {
-    
+    document.title = "Loading...";
 
      //getpost
     const docRef= doc(fstore, "posts", params)
     onSnapshot(docRef, (doc) => {
       post = doc.data();
+      document.title = post.title;
       content = post.content.replaceAll("<br>", "\n");
       setTimeout(()=>{
       MathJax.typeset(); 

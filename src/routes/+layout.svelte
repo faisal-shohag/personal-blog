@@ -20,6 +20,7 @@
 
   let me;
   onMount(async () => {
+    document.title = "Hello Faisal. | Home";
    const  saveSettings =() => {
       return new Promise((resolve, reject) => {
         let x = setInterval(()=>{
@@ -42,13 +43,8 @@
           success: 'Signed In!',
           error: 'You are not signed In!',
         },
-        {
-          position: "bottom-center"
-        }
     );
     onAuthStateChanged(fauth, async(user) => {
-     
-     
         if(user) {
             userStore.set({...user, loggedIn: true});
             me = user;
@@ -133,13 +129,13 @@
       </button>
     </div>
 
-    <img
-      src="https://cdn-icons-png.flaticon.com/512/534/534626.png"
-      class="mr-3 h-6 sm:h-9"
+    <!-- <img
+      src="../src/images/f.png"
+      class="mr-3 hidden sm:h-9"
       alt="Logo"
-    />
+    /> -->
     <span
-      class="max-sm:hidden self-center whitespace-nowrap text-xl font-bold font-poppins dark:text-orange-600 text-orange-500"
+      class="max-sm:text-[17px] self-center whitespace-nowrap text-xl font-bold font-poppins dark:text-orange-600 text-orange-500"
     >
       Faisal.
     </span>
