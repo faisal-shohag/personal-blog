@@ -85,6 +85,7 @@ const handleSubmit = async() => {
             await updateDoc(doc(fstore, "posts", params), {
               comment: increment(1)
             });
+            commentText = "";
         } catch(err){
             console.log(err);
         }
@@ -209,13 +210,13 @@ const deleteMyComment = async(id) => {
 
 
 {#if comments.length > 0}
-<div class="text-2xl max-sm:text-17px font-bold font-Lato"> Comments({comments.length})</div>
+<div class="text-2xl max-sm:text-16px font-bold font-Lato"> Comments({comments.length})</div>
 <SendInput  on:submit={handleSubmit} bind:commentText/>
 {#each comments as c}
   <CommentCard on:deleteComment={()=>deleteMyComment(c.id)} mycomment={c.author.id == $userStore.uid} photoUrl={c.author.photoURL} author={c.author.name} time={$common.getDate(c.createdAt)} comment={c.comment} like={c.like}/>
 {/each}
 {:else}
-<div class="text-2xl max-sm:text-[20px] font-bold font-Lato"> Comments(0)</div>
+<div class="text-2xl max-sm:text-[16px] font-bold font-Lato"> Comments(0)</div>
 <SendInput on:submit={handleSubmit} bind:commentText/>
 {/if}
 
