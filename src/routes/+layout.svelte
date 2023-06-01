@@ -8,7 +8,7 @@
     AppRail,
     AppRailTile,
   } from "@skeletonlabs/skeleton";
-  import { Navbar, NavBrand, Dropdown, DropdownItem, DropdownDivider, DropdownHeader, Chevron } from "flowbite-svelte";
+  import { Navbar, NavBrand, Dropdown, DropdownItem, DropdownHeader, Chevron } from "flowbite-svelte";
   import "../app.postcss";
   import Icon from "@iconify/svelte";
   import { page } from "$app/stores";

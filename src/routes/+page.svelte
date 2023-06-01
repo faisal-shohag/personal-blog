@@ -42,7 +42,7 @@
       posts = posts;
       setTimeout(()=>{
         MathJax.typeset();
-      }, 1000);
+      }, 500);
     });
     
   });
@@ -58,14 +58,6 @@
       console.log(err);
     }
   }
- 
-//  const unsubscribe = userStore.subscribe(async (data) =>{
-//     console.log(data);
-//  })
- 
-//  onDestroy(unsubscribe);
-// console.log($userStore);
-
  
 </script>
 

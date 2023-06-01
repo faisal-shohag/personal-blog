@@ -26,8 +26,9 @@
   import { userStore } from "../../../stores/userStore";
   import { Toast, toastStore } from '@skeletonlabs/skeleton';
   import { comment } from "svelte/internal";
-  const params = $page.params.blogId;
-
+  import RecommendedCard from "../../../lib/Components/RecommendedCard.svelte";
+  let params = $page.params.blogId;
+  // console.log(params);
   let icons = {
     "leetcode": "simple-icons:leetcode",
     "codeforces": "simple-icons:codeforces"
@@ -36,26 +37,22 @@
   let content;
   let comments = [];
 
-  onMount(async () => {
-    document.title = "Loading...";
 
-     //getpost
-    const docRef= doc(fstore, "posts", params)
-    onSnapshot(docRef, (doc) => {
+
+  //getpost
+ function getPost(key){
+     const docRef= doc(fstore, "posts", key)
+     onSnapshot(docRef, (doc) => {
       post = doc.data();
-      document.title = post.title;
       content = post.content.replaceAll("<br>", "\n");
-      setTimeout(()=>{
-      MathJax.typeset(); 
-      document.querySelectorAll("pre").forEach((el) => {
-        hljs.highlightElement(el);  
-      });
-    }, 2000);
+      document.title = post.title;
     });
-
-    //getcomments
+  }
+ 
+  //getcomments
+  function getComments (key) {
     const q = query(
-      collection(fstore, `posts/${params}/comments`),
+      collection(fstore, `posts/${key}/comments`),
       orderBy("createdAt", "desc")
     );
 
@@ -66,8 +63,20 @@
       });
       comments = comments;
     });
+  }
 
+  onMount(async () => {
+    document.title = "Loading...";
+    getPost(params);
+    getComments(params);
+    setTimeout(()=>{
+      MathJax.typeset(); 
+      document.querySelectorAll("pre").forEach((el) => {
+        hljs.highlightElement(el);  
+      });
+    }, 2000);
   });
+
 
  let commentText = "";
 const handleSubmit = async() => {
@@ -91,16 +100,6 @@ const handleSubmit = async() => {
         }
   
 }
-// const likeHandle = async (commentId, authorId) => {
-//       console.log(commentId, authorId);
-//       if($userStore.uid ===  authorId){
-//         toastStore.trigger({
-//         message: 'You can not love your own comment!',
-//         background: 'variant-filled-warning',
-//       })
-//       }
-      
-// }
 
 const deleteMyComment = async(id) => {
     try{
@@ -114,12 +113,14 @@ const deleteMyComment = async(id) => {
 }
 
 
+
+
+
 </script>
+
 <Toast/>
 
-
 {#if post && post.problems}
-
 {#if post.problems.length > 0}
 <SideListSkeleton style="max-xl:hidden fixed right-10 min-w-[350px]">
   {#each post.problems as problem}
@@ -202,23 +203,34 @@ const deleteMyComment = async(id) => {
 </SideListSkeleton>
 {/if}
 
-  {:else}
-  <div>Loading...</div>
-{/if}
 <hr />
 
+<!-- Recommended cards -->
+
+<RecommendedCard tags={post.tags} currentId={params}/>
+
+<hr/>
 
 
+
+<!-- Comments -->
 {#if comments.length > 0}
-<div class="text-2xl max-sm:text-16px font-bold font-Lato"> Comments({comments.length})</div>
+<div class="text-2xl max-sm:text-[16px] font-bold font-Lato"> Comments({comments.length})</div>
 <SendInput  on:submit={handleSubmit} bind:commentText/>
 {#each comments as c}
-  <CommentCard on:deleteComment={()=>deleteMyComment(c.id)} mycomment={c.author.id == $userStore.uid} photoUrl={c.author.photoURL} author={c.author.name} time={$common.getDate(c.createdAt)} comment={c.comment} like={c.like}/>
+<CommentCard on:deleteComment={()=>deleteMyComment(c.id)} mycomment={c.author.id == $userStore.uid} photoUrl={c.author.photoURL} author={c.author.name} time={$common.getDate(c.createdAt)} comment={c.comment} like={c.like}/>
 {/each}
 {:else}
 <div class="text-2xl max-sm:text-[16px] font-bold font-Lato"> Comments(0)</div>
 <SendInput on:submit={handleSubmit} bind:commentText/>
 {/if}
+
+  {:else}
+<div>Loading...</div>
+
+{/if}
+
+
 
 
 
