@@ -105,7 +105,7 @@
         </div>
         <!-- Projects -->
         <div class="mt-5">
-            <div class="text-2xl font-light uppercase mb-2">Projects</div>
+            <div class="text-2xl font-light uppercase mb-2">Selected Projects</div>
             <div class="text-bold text-xl flex items-center gap-2">Britto Edu. <a target="__blank" class="flex items-center gap-1 text-sm" href="https://britto.netlify.app"><Icon class="text-lg" icon="line-md:external-link-rounded" /> View</a></div>
             <div class="text-md font-light">An online MCQ exam website for university admission test students.</div>
             <div class="text-md font-light"><span class="font-bold">Tech. used: </span> HTML, CSS, JS, Firebase</div>

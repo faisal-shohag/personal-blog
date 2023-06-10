@@ -15,7 +15,7 @@
   ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
   let data;
 
-  const parcent = (solved, total)=> Math.floor((solved/total)*100);
+  const parcent = (solved, total)=> Math.ceil((solved/total)*100);
   let leet;
 onMount(()=>{
     fetch('https://leetcode-stats-api.herokuapp.com/faisalshohagprog')
@@ -57,7 +57,10 @@ let options = {
   
 </script>
 <div class="variant-glass rounded-lg p-5">
-    <div class="text-2xl flex items-center gap-2 pb-1"><Icon icon="simple-icons:leetcode" /> LeetCode</div>
+    <div class="text-xl flex items-center justify-between pb-1">
+        <div class="flex gap-2 items-center"><Icon icon="simple-icons:leetcode" /> LeetCode</div>
+        <a class="flex items-center gap-1 text-sm" target="__blank" href="https://leetcode.com/faisalshohagprog/"><Icon icon="line-md:external-link-rounded" /> View</a>
+    </div>
  <hr/>
  {#if data}
  <div class="flex items-center gap-3">
@@ -95,7 +98,7 @@ let options = {
 </div>
  </div>
  {:else}
- <div class="flex items-center gap-3">
+ <div class="flex items-center gap-3 mt-3">
     <div class="w-[150px]"> <ProgressRadial width="w-[137px]" value={undefined} /> </div>
      <div  class="w-[100%]">
        <div class="animate-pulse mb-1 w-[80px] h-3 bg-gray-400 dark:bg-gray-600 rounded-full"></div>
