@@ -23,11 +23,13 @@
   "type": "module",
   "dependencies": {
     "@popperjs/core": "^2.11.7",
+    "chart.js": "^4.3.0",
     "classnames": "^2.3.2",
     "firebase": "^9.20.0",
     "flowbite": "^1.6.5",
     "flowbite-svelte": "^0.34.9",
     "highlight.js": "^11.8.0",
+    "svelte-chartjs": "^3.1.2",
     "svelte-french-toast": "^1.0.4-beta.0"
   }
 }

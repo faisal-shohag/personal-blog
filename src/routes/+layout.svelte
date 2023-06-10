@@ -1,9 +1,7 @@
 <script>
   import "@skeletonlabs/skeleton/themes/theme-skeleton.css";
   import "@skeletonlabs/skeleton/styles/all.css";
-  import home from '../images/cosmos1.png';
   import {
-    LightSwitch,
     AppShell,
     AppRail,
     AppRailTile,
@@ -13,11 +11,11 @@
   import Icon from "@iconify/svelte";
   import { page } from "$app/stores";
   import {onAuthStateChanged, signOut} from 'firebase/auth'
-  import { fauth, db } from "../firebase";
+  import { fauth } from "../firebase";
   import {onMount} from 'svelte';
   import {userStore} from "../stores/userStore"
   import toast, { Toaster } from 'svelte-french-toast';
-
+  import { DarkMode } from 'flowbite-svelte';
   let me;
   onMount(async () => {
     document.title = "Hello Faisal. | Home";
@@ -71,6 +69,7 @@
         console.log(err);
       }
   }
+  let btnClass = 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-xl p-2';
 </script>
 <svelte:head>
   <link
@@ -135,13 +134,14 @@
     >
       Faisal.
     </span>
+    <DarkMode {btnClass} />
   </NavBrand>
  
   {#if me}
   <Chevron aligned><div><img class="w-[30px] h-[30px] rounded-full s-nb_ptBq0IalQ" src={me.photoURL} alt="Rounded avatar"></div></Chevron>
   <Dropdown>
     <DropdownHeader>{me.displayName}</DropdownHeader>
-    <DropdownItem><div class="flex justify-between items-center"><div class="flex gap-1 items-center"><Icon icon="mdi:theme-light-dark" /> Theme</div> <LightSwitch/></div></DropdownItem>
+    <DropdownItem><div class="flex justify-between items-center"><div class="flex gap-1 items-center"><Icon icon="mdi:theme-light-dark" /> Theme</div> <DarkMode {btnClass} /></div></DropdownItem>
     <DropdownItem slot="footer" on:click={logOut}>Sign out</DropdownItem>
   </Dropdown>
   {:else}
@@ -150,10 +150,6 @@
     <span><Icon icon="bi:google" /></span>
     <span>Sign In</span>
   </button></a>
-  <Chevron aligned><Icon icon="entypo:dots-three-vertical" /></Chevron>
-  <Dropdown>
-    <DropdownItem><div class="flex justify-between items-center"><div class="flex gap-1 items-center"><Icon icon="mdi:theme-light-dark" /> Theme</div> <LightSwitch/></div></DropdownItem>
-  </Dropdown>
 </div>
   {/if}
  
@@ -174,7 +170,7 @@
       value={0}
       class="{'/' === $page.url.pathname ? '!bg-primary-500' : ''}"
         >
-        <img class="h-10" src={home} alt=""/>
+        <Icon class="text-3xl" icon="pepicons-pop:planet" />
         </AppRailTile
       >
       <!-- <AppRailTile
@@ -188,36 +184,39 @@
       > -->
       <AppRailTile
         on:click={openSide}
+        label="Coding"
+        tag="a"
+        href={"/coding"}
+        value={1}
+        class="{'/coding' === $page.url.pathname ? '!bg-primary-500' : ''}"
+        ><Icon
+          class="text-3xl"
+          icon="ion:rocket"
+        /></AppRailTile
+      >
+
+      <AppRailTile
+        on:click={openSide}
         label="Resume"
         tag="a"
         href={"/resume"}
         value={2}
         class="{'/resume' === $page.url.pathname ? '!bg-primary-500' : ''}"
-        ><Icon class="text-3xl" icon="line-md:document-list" />
-        </AppRailTile
-      >
-      <!-- <AppRailTile
-        on:click={openSide}
-        label="Portfolio"
-        tag="a"
-        href={"/resume"}
-        value={2}
-        class="{'/resume' === $page.url.pathname ? '!bg-primary-500' : ''}"
-        ><Icon
-          class="text-3xl"
-          icon="line-md:buy-me-a-coffee-filled"
-        /></AppRailTile
-      > -->
-      <AppRailTile
+        ><Icon class="text-3xl" icon="fluent-emoji-high-contrast:popcorn" />
+        </AppRailTile>
+      
+        <AppRailTile
         on:click={openSide}
         label="About"
         tag="a"
         href={"/about"}
         value={3}
         class="{'/about' === $page.url.pathname ? '!bg-error-500' : ''}"
-        ><Icon class="text-3xl" icon="line-md:heart-filled" /></AppRailTile
-      >
-    </AppRail>
+        >
+        <Icon class="text-3xl" icon="line-md:heart-filled" />
+      </AppRailTile>
+   
+      </AppRail>
   </svelte:fragment>
 
   <!-- svelte-ignore a11y-click-events-have-key-events -->
