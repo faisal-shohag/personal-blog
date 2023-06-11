@@ -166,6 +166,7 @@ const deleteMyComment = async(id) => {
   <hr />
 
   <div class="blog-content">
+    {#if post.qt && post.qt !=="..."}
     <figure class="mb-5 max-w-screen-md font-hind mx-auto text-center">
       <svg
         aria-hidden="true"
@@ -191,6 +192,7 @@ const deleteMyComment = async(id) => {
         </div>
       </figcaption>
     </figure>
+    {/if}
     <div>
     {@html content}
   </div>
