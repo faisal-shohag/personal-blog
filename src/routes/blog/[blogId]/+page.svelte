@@ -31,7 +31,8 @@
   // console.log(params);
   let icons = {
     "leetcode": "simple-icons:leetcode",
-    "codeforces": "simple-icons:codeforces"
+    "codeforces": "simple-icons:codeforces",
+    "cn": "mdi:ninja"
   }
   let post;
   let content;

@@ -180,7 +180,7 @@
 
   `)} class="optionClick p-2 variant-filled-secondary hover:variant-filled-primary rounded-lg cursor-pointer"><Icon icon="iconoir:task-list" /></div>
 </div>
-<textarea id="textarea" class="w-full h-[300px] border-s-1 rounded-md border-gray-300" on:keydown={processBlog} bind:value={content}></textarea>
+<textarea id="textarea" class="w-full h-[300px] border-s-1 rounded-md border-gray-300 text-black dark:text-white bg-white dark:bg-black" on:keydown={processBlog} bind:value={content}></textarea>
 
 <div class="text-2xl font-hind font-bold">Preview</div>
 <div class="flex gap-3 items-center md:float-right max-sm:hidden">
