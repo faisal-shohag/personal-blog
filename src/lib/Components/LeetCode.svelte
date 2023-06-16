@@ -11,16 +11,49 @@
   } from 'chart.js';
   import { onMount } from "svelte";
   import { ProgressBar, ProgressRadial } from '@skeletonlabs/skeleton';
- 
+  import moment from 'moment';
+  import SvelteHeatmap from 'svelte-heatmap';
+
   ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
   let data;
 
   const parcent = (solved, total)=> Math.ceil((solved/total)*100);
   let leet;
+  let submissionCalendar = [];
+  let maxStreak = 0;
+  let totalSubmission = 0;
+  const dayDiff = (date1, date2) => {
+    let one = new Date(date1);
+    let two = new Date(date2);
+    let diff = one - two;
+    return Math.floor(diff/(1000 * 60 * 60 * 24));
+  }
 onMount(()=>{
     fetch('https://leetcode-stats-api.herokuapp.com/faisalshohagprog')
     .then(res=> res.json())
     .then(d=> {
+        let cal = Object.entries(d.submissionCalendar);
+        for(let i=0; i<cal.length; i++) {
+            let date = new Date(parseInt(cal[i][0]) * 1000);
+            submissionCalendar[i] = {
+                date: date.toISOString(),
+                value: cal[i][1]
+            }
+            totalSubmission += cal[i][1];
+        }
+        let cnt = 0;
+        for(let i=0; i<submissionCalendar.length-2; i++){
+            let diff = dayDiff(submissionCalendar[i+1].date, submissionCalendar[i].date);
+            if(diff==1){
+                cnt++;
+            }
+            if(diff!=1){
+                maxStreak = Math.max(maxStreak, cnt);
+                cnt = 0;
+            }
+        }
+        maxStreak = Math.max(cnt, maxStreak);
+
         leet = {
             ...d,
             easy: parcent(d.easySolved, d.totalEasy),
@@ -97,6 +130,29 @@ let options = {
     </div> 
 </div>
  </div>
+
+ {#if submissionCalendar.length > 0}
+ <div class="mt-5">
+    <div class=""><span class="text-md">{totalSubmission}</span> submissions</div>
+    <div class="flex gap-5 text-[13px]"><span>Total active days: {submissionCalendar.length}</span> <span>Max Streak: {maxStreak+2}</span></div>
+</div>
+ <div>
+    <SvelteHeatmap
+    allowOverflow={true}
+    cellGap={5}
+    cellRadius={2}
+    colors={['#3B7B54', '#53D680', '#71D192', '#71D192']}
+    data={submissionCalendar}
+    dayLabelWidth={20}
+    emptyColor={'#222'}
+    endDate={submissionCalendar[submissionCalendar.length-1].date}
+    monthGap={20}
+    monthLabelHeight={20}
+    startDate={submissionCalendar[0].date}
+    view={'monthly'},
+  />
+ </div>
+ {/if}
  {:else}
  <div class="flex items-center gap-3 mt-3">
     <div class="w-[150px]"> <ProgressRadial width="w-[137px]" value={undefined} /> </div>
