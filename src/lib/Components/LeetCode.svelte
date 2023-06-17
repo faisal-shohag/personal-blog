@@ -29,7 +29,7 @@
     return Math.floor(diff/(1000 * 60 * 60 * 24));
   }
 onMount(()=>{
-    fetch('https://hungry-pear-prawn.cyclic.app/faisalshohagprog')
+    fetch('https://faisal-leetcode-api.cyclic.app/faisalshohagprog')
     .then(res=> res.json())
     .then(d=> {
         let cal = Object.entries(d.submissionCalendar);
