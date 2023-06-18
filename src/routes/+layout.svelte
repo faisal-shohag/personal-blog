@@ -197,10 +197,20 @@
 
       <AppRailTile
         on:click={openSide}
+        label="Problems"
+        tag="a"
+        href={"/problems"}
+        value={2}
+        class="{'/problems' === $page.url.pathname ? '!bg-primary-500' : ''}"
+        ><Icon class="text-3xl" icon="humbleicons:bulb" />
+        </AppRailTile>
+
+      <AppRailTile
+        on:click={openSide}
         label="Resume"
         tag="a"
         href={"/resume"}
-        value={2}
+        value={3}
         class="{'/resume' === $page.url.pathname ? '!bg-primary-500' : ''}"
         ><Icon class="text-3xl" icon="fluent-emoji-high-contrast:popcorn" />
         </AppRailTile>
@@ -210,7 +220,7 @@
         label="About"
         tag="a"
         href={"/about"}
-        value={3}
+        value={4}
         class="{'/about' === $page.url.pathname ? '!bg-error-500' : ''}"
         >
         <Icon class="text-3xl" icon="line-md:heart-filled" />

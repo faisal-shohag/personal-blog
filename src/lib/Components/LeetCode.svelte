@@ -134,7 +134,7 @@ let options = {
  {#if submissionCalendar.length > 0}
  <div class="mt-5">
     <div class=""><span class="text-md">{totalSubmission}</span> submissions</div>
-    <div class="flex gap-5 text-[13px]"><span>Total active days: {submissionCalendar.length}</span> <span>Max Streak: {maxStreak+2}</span></div>
+    <div class="flex gap-5 text-[13px] mb-2"><span>Active days: {submissionCalendar.length}</span> <span>Max Streak: {maxStreak+2}</span> <span>Last Submission: {(moment(submissionCalendar[submissionCalendar.length-1].date).calendar()).split(' ')[0]}</span></div>
 </div>
  <div>
     <SvelteHeatmap
@@ -150,6 +150,7 @@ let options = {
     monthLabelHeight={20}
     startDate={submissionCalendar[0].date}
     view={'monthly'},
+    fontColor={'#868A88'}
   />
  </div>
  {/if}
