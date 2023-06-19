@@ -35,66 +35,6 @@
         {
             title: "🌶 Hard",
             name: "hard"
-        },
-        {
-            title: "🇬 Google",
-            name: "google"
-        },
-        {
-            title: "🇦 Amazon",
-            name: "amazon"
-        },
-        {
-            title: "🇲 Microsoft",
-            name: "Microsoft"
-        },
-        {
-            title: "Arrays",
-            name: "array"
-        },
-        {
-            title: "Binary Search",
-            name: "bs"
-        },
-        {
-            title: "Recursion",
-            name: "rec"
-        },
-        {
-            title: "String",
-            name: "string"
-        },
-        {
-            title: "Stack",
-            name: "stack"
-        },
-        {
-            title: "Queue",
-            name: "queue"
-        },
-        {
-            title: "Linked List",
-            name: "ll"
-        },
-        {
-            title: "BFS",
-            name: "bfs"
-        },
-        {
-            title: "DFS",
-            name: "dfs"
-        },
-        {
-            title: "Tree",
-            name: "tree"
-        },
-        {
-            title: "Graph",
-            name: "graph"
-        },
-        {
-            title: "Trie",
-            name: "trie"
         }
     ]
 
