@@ -6,7 +6,7 @@
 </script>
 <div>
 
-    
-    <LeetCode/>
 
+    <LeetCode/>
+    
 </div>

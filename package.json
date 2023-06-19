@@ -31,6 +31,7 @@
     "highlight.js": "^11.8.0",
     "moment": "^2.29.4",
     "svelte-chartjs": "^3.1.2",
+    "svelte-confetti": "^1.2.2",
     "svelte-french-toast": "^1.0.4-beta.0",
     "svelte-heatmap": "^1.0.2"
   }
