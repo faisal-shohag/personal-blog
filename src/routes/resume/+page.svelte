@@ -8,7 +8,7 @@
 <div  class="bg-white max-sm:zoom-50 dark:bg-gray-900 w-full h-auto p-10 font-lato">
 <div class="text-center mb-2">
     <div class="text-4xl mb-1"><span class="font-light">Faisal</span> <span class="font-bold">Shohag</span></div>
-    <div class="text-sm">faisalshohagprog@gmail.com | +8801318067123 | hellofaisal.netlify.app | Github: faisal-shohag</div>
+    <div class="text-sm">---------@gmail.com | +88013xxxxxxxxxxxx | hellofaisal.netlify.app | Github: faisal-shohag</div>
 </div>
 <hr/>
 
@@ -85,7 +85,7 @@
 <!-- section 2 -->
 <div>
         <!-- Experience -->
-        <div>
+        <div class="hidden">
         <div class="text-2xl font-light uppercase">Experience</div>
         <div class="text-[14px] font-bold uppercase mb-2">Fresher</div>
         </div>
@@ -97,11 +97,11 @@
         <div class="text-lg">SvelteKit</div> -->
 
         <!-- Programming Profiles -->
-        <div class="mt-5">
+        <div class="mt-1">
             <div class="text-2xl font-light uppercase">Programming Profiles</div>
             <div class="text-lg italic mb-2 flex items-center gap-2"><Icon icon="simple-icons:leetcode" /> LeetCode <a class="flex items-center gap-1 text-sm" target="__blank" href="https://leetcode.com/faisalshohagprog/"><Icon icon="line-md:external-link-rounded" /> View</a></div>
             <div class="text-lg italic mb-2 flex items-center gap-2"><Icon icon="simple-icons:codechef" /> CodeChef <a class="flex items-center gap-1 text-sm" target="__blank" href="https://www.codechef.com/users/faisal_shohag"><Icon icon="line-md:external-link-rounded" /> View</a></div>
-            <div class="text-lg italic mb-2 flex items-center gap-2"><Icon icon="simple-icons:codeforces" /> Codeforces <a class="flex items-center gap-1 text-sm" target="__blank" href="https://codeforces.com/profile/Faisal_brur_11"><Icon icon="line-md:external-link-rounded" /> View</a></div>
+            <div class="hidden text-lg italic mb-2 flex items-center gap-2"><Icon icon="simple-icons:codeforces" /> Codeforces <a class="flex items-center gap-1 text-sm" target="__blank" href="https://codeforces.com/profile/Faisal_brur_11"><Icon icon="line-md:external-link-rounded" /> View</a></div>
         </div>
         <!-- Projects -->
         <div class="mt-5">

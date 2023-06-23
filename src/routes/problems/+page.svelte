@@ -101,7 +101,7 @@ let p_type = {
 
     <div class="font-lato">
         <div class="animate__animated animate__fadeIn text-3xl max-sm:text-xl font-fold font-bold mb-2 drop-shadow-lg">
-            <span class="bg-gradient-to-br from-blue-500 to-cyan-400 bg-clip-text text-transparent box-decoration-clone">Problem</span>
+            <span class="bg-gradient-to-br from-blue-500 to-cyan-400 bg-clip-text text-transparent box-decoration-clone">Problems</span>
             <span class="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent box-decoration-clone">&</span>
             <span class="bg-gradient-to-br from-pink-500 to-violet-500 bg-clip-text text-transparent box-decoration-clone">Me</span>
         </div>
@@ -155,6 +155,7 @@ let p_type = {
 </div>
   {:else}
   <div class="mt-5 text-[30px] font-bold">{tabs[$tabSet].title}</div>
+  <div class="variant-soft-error p-2 rounded-lg">This section is not completed yet!</div>
 
 {/if}
 
