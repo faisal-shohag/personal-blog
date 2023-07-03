@@ -11,40 +11,99 @@
     collection,
     query,
     orderBy,
+    startAt,
+    endAt,
+    startAfter,
+    endBefore,
     limit,
     onSnapshot,
     updateDoc,
     doc,
-    increment
+    increment,
+
+    getDocs
+
   } from "firebase/firestore";
   import { fstore } from "../firebase";
 
+
+
   let posts = [];
+  let lastVisible;
+  let lim = 10;
+  let postCount = 0;
 
-  onMount(()=>{
-    const q = query(
-      collection(fstore, "posts"),
-      orderBy("createdAt", "desc"),
-      limit(10)
-    );
-
-    onSnapshot(q, (snapshot) => {
-      posts = [];
-      snapshot.forEach((doc) => {
-        posts.push({
+  const makeData = (docS) => {
+    docS.forEach(doc=>{
+      posts.push({
           ...doc.data(),
           mins: $common.getReadTime(doc.data().content),
           createdAt: $common.getDate(doc.data().createdAt),
           id: doc.id
         });
-      });
+    })
 
       posts = posts;
+}
+
+  const  nextData = async(lastVisible, lim) => {
+      posts = [];
+    const q = query(
+      collection(fstore, "posts"),
+      orderBy("createdAt", "desc"),
+      startAfter(lastVisible),
+      limit(lim)
+    );
+
+    postCount++;
+
+    const docS = await getDocs(q);
+    lastVisible = docS.docs[docS.docs.length-1];
+    makeData(docS);
+
       setTimeout(()=>{
         MathJax.typeset();
       }, 500);
-    });
-    
+  }
+
+  const  prevData = async(lastVisible, lim) => {
+      posts = [];
+    const q = query(
+      collection(fstore, "posts"),
+      orderBy("createdAt", "desc"),
+      endAt(lastVisible),
+      limit(lim)
+    );
+
+    postCount--;
+
+    const docS = await getDocs(q);
+    lastVisible = docS.docs[docS.docs.length-1];
+    makeData(docS);
+
+      setTimeout(()=>{
+        MathJax.typeset();
+      }, 500);
+  }
+
+
+
+  onMount(async ()=>{
+    document.title = "Hello Faisal. | Home";
+    posts = [];
+    const q = query(
+      collection(fstore, "posts"),
+      orderBy("createdAt", "desc"),
+      limit(lim)
+    );
+
+    const docS = await getDocs(q);
+    lastVisible = docS.docs[docS.docs.length-1];
+    makeData(docS);
+
+      setTimeout(()=>{
+        MathJax.typeset();
+      }, 500);
   });
 
   const readHandle = async(id, read) => {
@@ -57,6 +116,16 @@
     } catch(err){
       console.log(err);
     }
+  }
+
+  const next = () => {
+      if(posts.length>=10){
+        nextData(lastVisible, lim);
+      }
+  }
+
+  const prev = () => {
+      prevData(lastVisible, lim);
   }
  
 </script>
@@ -86,6 +155,15 @@
       />
     </a>
   {/each}
+  <div class="flex items-center justify-center gap-5">
+    {#if postCount!=0}
+    <button on:click={()=> prev()} class="btn variant-filled-primary">Previous</button>
+    {/if}
+
+    {#if posts.length>9}
+    <button on:click={()=> next()} class="btn variant-filled-primary">Next</button>
+    {/if}
+  </div>
 {:else}
   <PostSkeleton />
   <PostSkeleton />
