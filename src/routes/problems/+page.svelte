@@ -2,7 +2,8 @@
     import Icon from '@iconify/svelte';
     import { TabGroup, Tab } from '@skeletonlabs/skeleton';
     import { writable } from 'svelte/store';
-    import { Timeline, TimelineItem, TimelineItemVertical, TimelineItemHorizontal, TimelineHorizontal, Activity, ActivityItem, Group, GroupItem } from 'flowbite-svelte';
+    // import { Timeline, TimelineItem, TimelineItemVertical, TimelineItemHorizontal, TimelineHorizontal, Activity, ActivityItem, Group, GroupItem } from 'flowbite-svelte';
+    import { Dropdown, DropdownItem, ToolbarButton, MenuButton, DropdownDivider } from 'flowbite-svelte';
     import { onMount } from 'svelte';
     import { Button, Modal, Label, Input, Checkbox, Select } from 'flowbite-svelte'
     import toast, { Toaster } from 'svelte-french-toast';
@@ -208,7 +209,7 @@ let p_type = {
     "Hard" : "error"
 }
 
-
+let placement = 'left';
 </script>
 <Toaster/>
 <ProblemHead/>
@@ -236,8 +237,8 @@ let p_type = {
   <div class="">Loading...</div>
 {:else if wait == 1}
   {#if problems.length > 0}
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+  <div class="rounded-lg shadow-md sm:rounded-lg">
+    <table class="w-full rounded-lg text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="p-4">
@@ -267,7 +268,7 @@ let p_type = {
         </thead>
         <tbody>
     {#each problems as p}
-                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                       <td class="w-4 p-4">
                           <div class="flex items-center">
                               <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -290,12 +291,22 @@ let p_type = {
                           {p.platform}
                       </td>
                       <td class="px-6 py-4">
-                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                       <MenuButton class="dots-menu dark:text-white" vertical />
+                       <Dropdown {placement}  frameClass="z-50" triggeredBy=".dots-menu">
+                        <DropdownItem>+Top✨</DropdownItem>
+                        <DropdownItem>+Revision🌟</DropdownItem>
+                        <DropdownItem>+Favorite💖</DropdownItem>
+                        <DropdownItem>+Hard🌶</DropdownItem>
+                        <hr>
+                          <DropdownItem>+-Edit</DropdownItem>
+                          <DropdownItem>-Delete</DropdownItem>
+                      </Dropdown>
                     </td>
       </tr>
     {/each}
   </tbody>
 </table>
+
 </div>
   {:else}
     <div>No problem found!</div>
